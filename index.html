@@ -1,0 +1,2128 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/leaflet-search.css">
+        <link rel="stylesheet" href="css/filter.css">
+<link rel="stylesheet" href="css/nouislider.min.css">
+        <link rel="stylesheet" href="css/leaflet-control-geocoder.Geocoder.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-control-geocoder.Geocoder.js"></script>
+        <script src="js/leaflet-search.js"></script>
+        <script src="js/tailDT.js"></script>
+<script src="js/nouislider.min.js"></script>
+<script src="js/wNumb.js"></script>
+        <script src="data/Municipios_2.js"></script>
+        <script src="data/Lotes1926_3.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[27.29331268939402,-111.52670359848445],[28.368502083333134,-109.42670359848499]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_ESRISatelite_0');
+        map.getPane('pane_ESRISatelite_0').style.zIndex = 400;
+        var layer_ESRISatelite_0 = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            pane: 'pane_ESRISatelite_0',
+            opacity: 1.0,
+            attribution: '',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 18
+        });
+        layer_ESRISatelite_0;
+        map.addLayer(layer_ESRISatelite_0);
+        map.createPane('pane_GoogleSateliteHibrido_1');
+        map.getPane('pane_GoogleSateliteHibrido_1').style.zIndex = 401;
+        var layer_GoogleSateliteHibrido_1 = L.tileLayer('https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', {
+            pane: 'pane_GoogleSateliteHibrido_1',
+            opacity: 1.0,
+            attribution: '',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 18
+        });
+        layer_GoogleSateliteHibrido_1;
+        map.addLayer(layer_GoogleSateliteHibrido_1);
+        function pop_Municipios_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Municipio</th>\
+                        <td>' + (feature.properties['Municipio'] !== null ? autolinker.link(feature.properties['Municipio'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Municipios_2_0() {
+            return {
+                pane: 'pane_Municipios_2',
+                opacity: 1,
+                color: 'rgba(228,26,28,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 4.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Municipios_2');
+        map.getPane('pane_Municipios_2').style.zIndex = 402;
+        map.getPane('pane_Municipios_2').style['mix-blend-mode'] = 'normal';
+        var layer_Municipios_2 = new L.geoJson(json_Municipios_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Municipios_2',
+            layerName: 'layer_Municipios_2',
+            pane: 'pane_Municipios_2',
+            onEachFeature: pop_Municipios_2,
+            style: style_Municipios_2_0,
+        });
+        bounds_group.addLayer(layer_Municipios_2);
+        map.addLayer(layer_Municipios_2);
+        function pop_Lotes1926_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">COLONIA</th>\
+                        <td>' + (feature.properties['COLONIA'] !== null ? autolinker.link(feature.properties['COLONIA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">AÑO</th>\
+                        <td>' + (feature.properties['AÑO'] !== null ? autolinker.link(feature.properties['AÑO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Cuadril</th>\
+                        <td>' + (feature.properties['Cuadril'] !== null ? autolinker.link(feature.properties['Cuadril'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Lote</th>\
+                        <td>' + (feature.properties['Lote'] !== null ? autolinker.link(feature.properties['Lote'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Propieta_1</th>\
+                        <td>' + (feature.properties['Propieta_1'] !== null ? autolinker.link(feature.properties['Propieta_1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nombre</th>\
+                        <td>' + (feature.properties['Nombre'] !== null ? autolinker.link(feature.properties['Nombre'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Apellido</th>\
+                        <td>' + (feature.properties['Apellido'] !== null ? autolinker.link(feature.properties['Apellido'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nota_1</th>\
+                        <td>' + (feature.properties['Nota_1'] !== null ? autolinker.link(feature.properties['Nota_1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nota_2</th>\
+                        <td>' + (feature.properties['Nota_2'] !== null ? autolinker.link(feature.properties['Nota_2'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nota_3</th>\
+                        <td>' + (feature.properties['Nota_3'] !== null ? autolinker.link(feature.properties['Nota_3'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Superficie</th>\
+                        <td>' + (feature.properties['Superficie'] !== null ? autolinker.link(feature.properties['Superficie'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Lotes1926_3_0(feature) {
+            switch(String(feature.properties['COLONIA'])) {
+                case 'BACUM':
+                    return {
+                pane: 'pane_Lotes1926_3',
+                opacity: 1,
+                color: 'rgba(215,25,28,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 4.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'COCORIT':
+                    return {
+                pane: 'pane_Lotes1926_3',
+                opacity: 1,
+                color: 'rgba(232,91,58,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 4.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'HURIVIS':
+                    return {
+                pane: 'pane_Lotes1926_3',
+                opacity: 1,
+                color: 'rgba(249,158,89,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 4.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'MEDANO':
+                    return {
+                pane: 'pane_Lotes1926_3',
+                opacity: 1,
+                color: 'rgba(237,34,105,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 4.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'POTAM':
+                    return {
+                pane: 'pane_Lotes1926_3',
+                opacity: 1,
+                color: 'rgba(23,145,255,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 4.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'RAHUM':
+                    return {
+                pane: 'pane_Lotes1926_3',
+                opacity: 1,
+                color: 'rgba(39,248,185,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 4.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'SAN JOSÉ':
+                    return {
+                pane: 'pane_Lotes1926_3',
+                opacity: 1,
+                color: 'rgba(255,255,26,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 4.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'TORIM':
+                    return {
+                pane: 'pane_Lotes1926_3',
+                opacity: 1,
+                color: 'rgba(10,185,54,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 4.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'VICAM':
+                    return {
+                pane: 'pane_Lotes1926_3',
+                opacity: 1,
+                color: 'rgba(57,171,176,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 4.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_Lotes1926_3');
+        map.getPane('pane_Lotes1926_3').style.zIndex = 403;
+        map.getPane('pane_Lotes1926_3').style['mix-blend-mode'] = 'normal';
+        var layer_Lotes1926_3 = new L.geoJson(json_Lotes1926_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Lotes1926_3',
+            layerName: 'layer_Lotes1926_3',
+            pane: 'pane_Lotes1926_3',
+            onEachFeature: pop_Lotes1926_3,
+            style: style_Lotes1926_3_0,
+        });
+        bounds_group.addLayer(layer_Lotes1926_3);
+        map.addLayer(layer_Lotes1926_3);
+        var osmGeocoder = new L.Control.Geocoder({
+            collapsed: true,
+            position: 'topleft',
+            text: 'Search',
+            title: 'Testing'
+        }).addTo(map);
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+        .className += ' fa fa-search';
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+        .title += 'Search for a place';
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'Lotes 1926<br /><table><tr><td style="text-align: center;"><img src="legend/Lotes1926_3_BACUM0.png" /></td><td>BACUM</td></tr><tr><td style="text-align: center;"><img src="legend/Lotes1926_3_COCORIT1.png" /></td><td>COCORIT</td></tr><tr><td style="text-align: center;"><img src="legend/Lotes1926_3_HURIVIS2.png" /></td><td>HURIVIS</td></tr><tr><td style="text-align: center;"><img src="legend/Lotes1926_3_MEDANO3.png" /></td><td>MEDANO</td></tr><tr><td style="text-align: center;"><img src="legend/Lotes1926_3_POTAM4.png" /></td><td>POTAM</td></tr><tr><td style="text-align: center;"><img src="legend/Lotes1926_3_RAHUM5.png" /></td><td>RAHUM</td></tr><tr><td style="text-align: center;"><img src="legend/Lotes1926_3_SANJOSÉ6.png" /></td><td>SAN JOSÉ</td></tr><tr><td style="text-align: center;"><img src="legend/Lotes1926_3_TORIM7.png" /></td><td>TORIM</td></tr><tr><td style="text-align: center;"><img src="legend/Lotes1926_3_VICAM8.png" /></td><td>VICAM</td></tr></table>': layer_Lotes1926_3,'<img src="legend/Municipios_2.png" /> Municipios': layer_Municipios_2,"Google Satelite Hibrido": layer_GoogleSateliteHibrido_1,"ESRI Satelite": layer_ESRISatelite_0,}).addTo(map);
+        setBounds();
+        map.addControl(new L.Control.Search({
+            layer: layer_Lotes1926_3,
+            initial: false,
+            hideMarkerOnCollapse: true,
+            propertyName: 'Propieta_1'}));
+        document.getElementsByClassName('search-button')[0].className +=
+         ' fa fa-binoculars';
+        var mapDiv = document.getElementById('map');
+        var row = document.createElement('div');
+        row.className="row";
+        row.id="all";
+        row.style.height = "100%";
+        var col1 = document.createElement('div');
+        col1.className="col9";
+        col1.id = "mapWindow";
+        col1.style.height = "99%";
+        col1.style.width = "80%";
+        col1.style.display = "inline-block";
+        var col2 = document.createElement('div');
+        col2.className="col3";
+        col2.id = "menu";
+        col2.style.display = "inline-block";
+        mapDiv.parentNode.insertBefore(row, mapDiv);
+        document.getElementById("all").appendChild(col1);
+        document.getElementById("all").appendChild(col2);
+        col1.appendChild(mapDiv)
+        var Filters = {"Propieta_1": "str","COLONIA": "str"};
+        function filterFunc() {
+          map.eachLayer(function(lyr){
+          if ("options" in lyr && "dataVar" in lyr["options"]){
+            features = this[lyr["options"]["dataVar"]].features.slice(0);
+            try{
+              for (key in Filters){
+                keyS = key.replace(/[^a-zA-Z0-9_]/g, "")
+                if (Filters[key] == "str" || Filters[key] == "bool"){
+                  var selection = [];
+                  var options = document.getElementById("sel_" + keyS).options
+                  for (var i=0; i < options.length; i++) {
+                    if (options[i].selected) selection.push(options[i].value);
+                  }
+                    try{
+                      if (key in features[0].properties){
+                        for (i = features.length - 1;
+                          i >= 0; --i){
+                          if (selection.indexOf(
+                          features[i].properties[key])<0
+                          && selection.length>0) {
+                          features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                  }
+                }
+                if (Filters[key] == "int"){
+                  sliderVals =  document.getElementById(
+                    "div_" + keyS).noUiSlider.get();
+                  try{
+                    if (key in features[0].properties){
+                    for (i = features.length - 1; i >= 0; --i){
+                      if (parseInt(features[i].properties[key])
+                          < sliderVals[0]
+                          || parseInt(features[i].properties[key])
+                          > sliderVals[1]){
+                            features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                    }
+                  }
+                if (Filters[key] == "real"){
+                  sliderVals =  document.getElementById(
+                    "div_" + keyS).noUiSlider.get();
+                  try{
+                    if (key in features[0].properties){
+                    for (i = features.length - 1; i >= 0; --i){
+                      if (features[i].properties[key]
+                          < sliderVals[0]
+                          || features[i].properties[key]
+                          > sliderVals[1]){
+                            features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                    }
+                  }
+                if (Filters[key] == "date"
+                  || Filters[key] == "datetime"
+                  || Filters[key] == "time"){
+                  try{
+                    if (key in features[0].properties){
+                      HTMLkey = key.replace(/[&\/\\#,+()$~%.'":*?<>{} ]/g, '');
+                      startdate = document.getElementById("dat_" +
+                        HTMLkey + "_date1").value.replace(" ", "T");
+                      enddate = document.getElementById("dat_" +
+                        HTMLkey + "_date2").value.replace(" ", "T");
+                      for (i = features.length - 1; i >= 0; --i){
+                        if (features[i].properties[key] < startdate
+                          || features[i].properties[key] > enddate){
+                          features.splice(i,1);
+                        }
+                      }
+                    }
+                  } catch(err){
+                  }
+                }
+              }
+            } catch(err){
+            }
+          this[lyr["options"]["layerName"]].clearLayers();
+          this[lyr["options"]["layerName"]].addData(features);
+          }
+          })
+        }
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_Propieta_1 = document.createElement('div');
+            div_Propieta_1.id = "div_Propieta_1";
+            div_Propieta_1.className= "filterselect";
+            document.getElementById("menu").appendChild(div_Propieta_1);
+            sel_Propieta_1 = document.createElement('select');
+            sel_Propieta_1.multiple = true;
+            sel_Propieta_1.size = 10;
+            sel_Propieta_1.id = "sel_Propieta_1";
+            var Propieta_1_options_str = "<option value='' unselected></option>";
+            sel_Propieta_1.onchange = function(){filterFunc()};
+            Propieta_1_options_str  += '<option value="NULL">NULL</option>';
+            Propieta_1_options_str  += '<option value="A. Cubillas">A. Cubillas</option>';
+            Propieta_1_options_str  += '<option value="A. I. Campoy">A. I. Campoy</option>';
+            Propieta_1_options_str  += '<option value="A. Montaño">A. Montaño</option>';
+            Propieta_1_options_str  += '<option value="Abelardo Martínez">Abelardo Martínez</option>';
+            Propieta_1_options_str  += '<option value="Abraham Armenta">Abraham Armenta</option>';
+            Propieta_1_options_str  += '<option value="Abraham Ayala">Abraham Ayala</option>';
+            Propieta_1_options_str  += '<option value="Abraham Cano">Abraham Cano</option>';
+            Propieta_1_options_str  += '<option value="Abraham Duarte">Abraham Duarte</option>';
+            Propieta_1_options_str  += '<option value="Abraham Hale">Abraham Hale</option>';
+            Propieta_1_options_str  += '<option value="Abraham Ruiz">Abraham Ruiz</option>';
+            Propieta_1_options_str  += '<option value="Adela N. de Feller">Adela N. de Feller</option>';
+            Propieta_1_options_str  += '<option value="Adelaida Esquer">Adelaida Esquer</option>';
+            Propieta_1_options_str  += '<option value="Adolfo Frías">Adolfo Frías</option>';
+            Propieta_1_options_str  += '<option value="Adolfo Mendivil">Adolfo Mendivil</option>';
+            Propieta_1_options_str  += '<option value="Adolfo Pablos">Adolfo Pablos</option>';
+            Propieta_1_options_str  += '<option value="Adolfo Tunubiate">Adolfo Tunubiate</option>';
+            Propieta_1_options_str  += '<option value="Adolfo Zúñiga">Adolfo Zúñiga</option>';
+            Propieta_1_options_str  += '<option value="Adrián Armenta">Adrián Armenta</option>';
+            Propieta_1_options_str  += '<option value="Agapito Ruiz">Agapito Ruiz</option>';
+            Propieta_1_options_str  += '<option value="Agust.">Agust.</option>';
+            Propieta_1_options_str  += '<option value="Agustina Guilay">Agustina Guilay</option>';
+            Propieta_1_options_str  += '<option value="Agustín Amarillas">Agustín Amarillas</option>';
+            Propieta_1_options_str  += '<option value="Agustín Ayala">Agustín Ayala</option>';
+            Propieta_1_options_str  += '<option value="Agustín Bucapicio">Agustín Bucapicio</option>';
+            Propieta_1_options_str  += '<option value="Agustín Guapo">Agustín Guapo</option>';
+            Propieta_1_options_str  += '<option value="Agustín Güaguis">Agustín Güaguis</option>';
+            Propieta_1_options_str  += '<option value="Agustín Molina">Agustín Molina</option>';
+            Propieta_1_options_str  += '<option value="Agustín Paredes">Agustín Paredes</option>';
+            Propieta_1_options_str  += '<option value="Agustín Ramírez">Agustín Ramírez</option>';
+            Propieta_1_options_str  += '<option value="Agustín Romero">Agustín Romero</option>';
+            Propieta_1_options_str  += '<option value="Agustín Valenzuela">Agustín Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Alberto Pradeau">Alberto Pradeau</option>';
+            Propieta_1_options_str  += '<option value="Alberto Quiroz">Alberto Quiroz</option>';
+            Propieta_1_options_str  += '<option value="Alberto S. de la Mora">Alberto S. de la Mora</option>';
+            Propieta_1_options_str  += '<option value="Albina Castro">Albina Castro</option>';
+            Propieta_1_options_str  += '<option value="Albina Núñez">Albina Núñez</option>';
+            Propieta_1_options_str  += '<option value="Albino Escalante">Albino Escalante</option>';
+            Propieta_1_options_str  += '<option value="Albino Limón">Albino Limón</option>';
+            Propieta_1_options_str  += '<option value="Albino Torres">Albino Torres</option>';
+            Propieta_1_options_str  += '<option value="Alcon">Alcon</option>';
+            Propieta_1_options_str  += '<option value="Alejandro Barra">Alejandro Barra</option>';
+            Propieta_1_options_str  += '<option value="Alejandro Murrieta">Alejandro Murrieta</option>';
+            Propieta_1_options_str  += '<option value="Alejandro Rosas">Alejandro Rosas</option>';
+            Propieta_1_options_str  += '<option value="Alejandro Verdugo">Alejandro Verdugo</option>';
+            Propieta_1_options_str  += '<option value="Alejandro Yepis">Alejandro Yepis</option>';
+            Propieta_1_options_str  += '<option value="Alejandro Zazueta">Alejandro Zazueta</option>';
+            Propieta_1_options_str  += '<option value="Alejo Mendivil">Alejo Mendivil</option>';
+            Propieta_1_options_str  += '<option value="Alfonso Breceda">Alfonso Breceda</option>';
+            Propieta_1_options_str  += '<option value="Alfonso Duarte">Alfonso Duarte</option>';
+            Propieta_1_options_str  += '<option value="Alfredo Breceda">Alfredo Breceda</option>';
+            Propieta_1_options_str  += '<option value="Alfredo Quiroz">Alfredo Quiroz</option>';
+            Propieta_1_options_str  += '<option value="Alfredo Quirós">Alfredo Quirós</option>';
+            Propieta_1_options_str  += '<option value="Alfredo S. de la Mora">Alfredo S. de la Mora</option>';
+            Propieta_1_options_str  += '<option value="Alicia Rosas">Alicia Rosas</option>';
+            Propieta_1_options_str  += '<option value="Altagracia Sánchez">Altagracia Sánchez</option>';
+            Propieta_1_options_str  += '<option value="Amado Güereña">Amado Güereña</option>';
+            Propieta_1_options_str  += '<option value="Amado Lucenilla">Amado Lucenilla</option>';
+            Propieta_1_options_str  += '<option value="Amancio Acosta">Amancio Acosta</option>';
+            Propieta_1_options_str  += '<option value="Ambrosio Cruz">Ambrosio Cruz</option>';
+            Propieta_1_options_str  += '<option value="Amparo Esquer">Amparo Esquer</option>';
+            Propieta_1_options_str  += '<option value="Amparo Ochoa">Amparo Ochoa</option>';
+            Propieta_1_options_str  += '<option value="Amparo Pablos">Amparo Pablos</option>';
+            Propieta_1_options_str  += '<option value="Ana Bacasehua">Ana Bacasehua</option>';
+            Propieta_1_options_str  += '<option value="Ana Baumea">Ana Baumea</option>';
+            Propieta_1_options_str  += '<option value="Ana Cañez">Ana Cañez</option>';
+            Propieta_1_options_str  += '<option value="Ana Facundo">Ana Facundo</option>';
+            Propieta_1_options_str  += '<option value="Ana Martínez">Ana Martínez</option>';
+            Propieta_1_options_str  += '<option value="Ana Salcido">Ana Salcido</option>';
+            Propieta_1_options_str  += '<option value="Anas C. Félix">Anas C. Félix</option>';
+            Propieta_1_options_str  += '<option value="Anastacio Ania">Anastacio Ania</option>';
+            Propieta_1_options_str  += '<option value="Anastacio Cota">Anastacio Cota</option>';
+            Propieta_1_options_str  += '<option value="Anastasia Bahilay">Anastasia Bahilay</option>';
+            Propieta_1_options_str  += '<option value="Anastasia Félix">Anastasia Félix</option>';
+            Propieta_1_options_str  += '<option value="Anastasio Castro">Anastasio Castro</option>';
+            Propieta_1_options_str  += '<option value="Anastasio Salguero">Anastasio Salguero</option>';
+            Propieta_1_options_str  += '<option value="Andrés Buitimea">Andrés Buitimea</option>';
+            Propieta_1_options_str  += '<option value="Andrés Corrales">Andrés Corrales</option>';
+            Propieta_1_options_str  += '<option value="Andrés Félix">Andrés Félix</option>';
+            Propieta_1_options_str  += '<option value="Andrés Jauregui">Andrés Jauregui</option>';
+            Propieta_1_options_str  += '<option value="Andrés Nazumea">Andrés Nazumea</option>';
+            Propieta_1_options_str  += '<option value="Andrés Santiago">Andrés Santiago</option>';
+            Propieta_1_options_str  += '<option value="Angel Duarte">Angel Duarte</option>';
+            Propieta_1_options_str  += '<option value="Angel Quiroz">Angel Quiroz</option>';
+            Propieta_1_options_str  += '<option value="Angel Reina">Angel Reina</option>';
+            Propieta_1_options_str  += '<option value="Angel Reyna">Angel Reyna</option>';
+            Propieta_1_options_str  += '<option value="Angel Ruiz">Angel Ruiz</option>';
+            Propieta_1_options_str  += '<option value="Angel Suban">Angel Suban</option>';
+            Propieta_1_options_str  += '<option value="Angel Zayas">Angel Zayas</option>';
+            Propieta_1_options_str  += '<option value="Angela Arvizu">Angela Arvizu</option>';
+            Propieta_1_options_str  += '<option value="Angela Montiel">Angela Montiel</option>';
+            Propieta_1_options_str  += '<option value="Angela Rosas">Angela Rosas</option>';
+            Propieta_1_options_str  += '<option value="Angela Seamu">Angela Seamu</option>';
+            Propieta_1_options_str  += '<option value="Angela Segua">Angela Segua</option>';
+            Propieta_1_options_str  += '<option value="Angela Sánchez">Angela Sánchez</option>';
+            Propieta_1_options_str  += '<option value="Angela Valenzuela">Angela Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Angela Yepis">Angela Yepis</option>';
+            Propieta_1_options_str  += '<option value="Anselma Félix">Anselma Félix</option>';
+            Propieta_1_options_str  += '<option value="Ant. Esquer">Ant. Esquer</option>';
+            Propieta_1_options_str  += '<option value="Antiguo Fundo de Potam">Antiguo Fundo de Potam</option>';
+            Propieta_1_options_str  += '<option value="Antonia Bacasegua">Antonia Bacasegua</option>';
+            Propieta_1_options_str  += '<option value="Antonia Conejisa">Antonia Conejisa</option>';
+            Propieta_1_options_str  += '<option value="Antonia Jusacamea">Antonia Jusacamea</option>';
+            Propieta_1_options_str  += '<option value="Antonia Leyva">Antonia Leyva</option>';
+            Propieta_1_options_str  += '<option value="Antonia Machi">Antonia Machi</option>';
+            Propieta_1_options_str  += '<option value="Antonia María López">Antonia María López</option>';
+            Propieta_1_options_str  += '<option value="Antonia Muñoz">Antonia Muñoz</option>';
+            Propieta_1_options_str  += '<option value="Antonia Ruiz">Antonia Ruiz</option>';
+            Propieta_1_options_str  += '<option value="Antonia Valencia">Antonia Valencia</option>';
+            Propieta_1_options_str  += '<option value="Antonia Yoquihue">Antonia Yoquihue</option>';
+            Propieta_1_options_str  += '<option value="Antonio">Antonio</option>';
+            Propieta_1_options_str  += '<option value="Antonio Amarillas">Antonio Amarillas</option>';
+            Propieta_1_options_str  += '<option value="Antonio Ania">Antonio Ania</option>';
+            Propieta_1_options_str  += '<option value="Antonio Bachomapicio">Antonio Bachomapicio</option>';
+            Propieta_1_options_str  += '<option value="Antonio Baisea">Antonio Baisea</option>';
+            Propieta_1_options_str  += '<option value="Antonio Beteme">Antonio Beteme</option>';
+            Propieta_1_options_str  += '<option value="Antonio Bojorquez">Antonio Bojorquez</option>';
+            Propieta_1_options_str  += '<option value="Antonio Bojórquez">Antonio Bojórquez</option>';
+            Propieta_1_options_str  += '<option value="Antonio Buitimea">Antonio Buitimea</option>';
+            Propieta_1_options_str  += '<option value="Antonio Ceballos">Antonio Ceballos</option>';
+            Propieta_1_options_str  += '<option value="Antonio Cruz">Antonio Cruz</option>';
+            Propieta_1_options_str  += '<option value="Antonio Cusamea">Antonio Cusamea</option>';
+            Propieta_1_options_str  += '<option value="Antonio Félix">Antonio Félix</option>';
+            Propieta_1_options_str  += '<option value="Antonio García">Antonio García</option>';
+            Propieta_1_options_str  += '<option value="Antonio Horos">Antonio Horos</option>';
+            Propieta_1_options_str  += '<option value="Antonio Huycoy">Antonio Huycoy</option>';
+            Propieta_1_options_str  += '<option value="Antonio Ibarra">Antonio Ibarra</option>';
+            Propieta_1_options_str  += '<option value="Antonio Jaquia">Antonio Jaquia</option>';
+            Propieta_1_options_str  += '<option value="Antonio Jusacamea">Antonio Jusacamea</option>';
+            Propieta_1_options_str  += '<option value="Antonio M. López">Antonio M. López</option>';
+            Propieta_1_options_str  += '<option value="Antonio Mahita">Antonio Mahita</option>';
+            Propieta_1_options_str  += '<option value="Antonio Montaño">Antonio Montaño</option>';
+            Propieta_1_options_str  += '<option value="Antonio Montes">Antonio Montes</option>';
+            Propieta_1_options_str  += '<option value="Antonio Morales">Antonio Morales</option>';
+            Propieta_1_options_str  += '<option value="Antonio Portillo">Antonio Portillo</option>';
+            Propieta_1_options_str  += '<option value="Antonio Romero">Antonio Romero</option>';
+            Propieta_1_options_str  += '<option value="Antonio Sol">Antonio Sol</option>';
+            Propieta_1_options_str  += '<option value="Antonio Suárez">Antonio Suárez</option>';
+            Propieta_1_options_str  += '<option value="Antonio Torres">Antonio Torres</option>';
+            Propieta_1_options_str  += '<option value="Antonio Valencia">Antonio Valencia</option>';
+            Propieta_1_options_str  += '<option value="Antonio Valente Casia">Antonio Valente Casia</option>';
+            Propieta_1_options_str  += '<option value="Antonio Valenzuela">Antonio Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Antonio Yoquihue">Antonio Yoquihue</option>';
+            Propieta_1_options_str  += '<option value="Apolinario Paredes">Apolinario Paredes</option>';
+            Propieta_1_options_str  += '<option value="Apolonia Ripalda">Apolonia Ripalda</option>';
+            Propieta_1_options_str  += '<option value="Apolonia Valenzuela">Apolonia Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Arcadio Encinas">Arcadio Encinas</option>';
+            Propieta_1_options_str  += '<option value="Arcadio Toledo">Arcadio Toledo</option>';
+            Propieta_1_options_str  += '<option value="Arcadio Verdugo">Arcadio Verdugo</option>';
+            Propieta_1_options_str  += '<option value="Armenta">Armenta</option>';
+            Propieta_1_options_str  += '<option value="Arnoldo">Arnoldo</option>';
+            Propieta_1_options_str  += '<option value="Arnoldo Esquer">Arnoldo Esquer</option>';
+            Propieta_1_options_str  += '<option value="Artidoro Esquer">Artidoro Esquer</option>';
+            Propieta_1_options_str  += '<option value="Arturo Maggoff">Arturo Maggoff</option>';
+            Propieta_1_options_str  += '<option value="Arturo Morales">Arturo Morales</option>';
+            Propieta_1_options_str  += '<option value="Arturo Rosas">Arturo Rosas</option>';
+            Propieta_1_options_str  += '<option value="Ascención Anguamea">Ascención Anguamea</option>';
+            Propieta_1_options_str  += '<option value="Ascención Ibarra">Ascención Ibarra</option>';
+            Propieta_1_options_str  += '<option value="Ascención Jamescomea">Ascención Jamescomea</option>';
+            Propieta_1_options_str  += '<option value="Ascención Morales">Ascención Morales</option>';
+            Propieta_1_options_str  += '<option value="Ascención Yoquihue">Ascención Yoquihue</option>';
+            Propieta_1_options_str  += '<option value="Atilando Caumea">Atilando Caumea</option>';
+            Propieta_1_options_str  += '<option value="Augusto Pedefouck">Augusto Pedefouck</option>';
+            Propieta_1_options_str  += '<option value="Aureliano Torres">Aureliano Torres</option>';
+            Propieta_1_options_str  += '<option value="Aurelio Barroso">Aurelio Barroso</option>';
+            Propieta_1_options_str  += '<option value="Avelina Rivera">Avelina Rivera</option>';
+            Propieta_1_options_str  += '<option value="BACOJARI">BACOJARI</option>';
+            Propieta_1_options_str  += '<option value="Balbina Rubio">Balbina Rubio</option>';
+            Propieta_1_options_str  += '<option value="Balvanera Horos">Balvanera Horos</option>';
+            Propieta_1_options_str  += '<option value="Balvanera Yoquihue">Balvanera Yoquihue</option>';
+            Propieta_1_options_str  += '<option value="Bartolo Espinosa">Bartolo Espinosa</option>';
+            Propieta_1_options_str  += '<option value="Basilea Enriquez">Basilea Enriquez</option>';
+            Propieta_1_options_str  += '<option value="Bautista Torres">Bautista Torres</option>';
+            Propieta_1_options_str  += '<option value="Benigna León">Benigna León</option>';
+            Propieta_1_options_str  += '<option value="Benigna Macochin">Benigna Macochin</option>';
+            Propieta_1_options_str  += '<option value="Benito Aguilar">Benito Aguilar</option>';
+            Propieta_1_options_str  += '<option value="Benito Iturza">Benito Iturza</option>';
+            Propieta_1_options_str  += '<option value="Benito Molina">Benito Molina</option>';
+            Propieta_1_options_str  += '<option value="Benjamín Ruiz">Benjamín Ruiz</option>';
+            Propieta_1_options_str  += '<option value="Bernarda Armenta">Bernarda Armenta</option>';
+            Propieta_1_options_str  += '<option value="Bernardina Jecari">Bernardina Jecari</option>';
+            Propieta_1_options_str  += '<option value="Bernardo Castro">Bernardo Castro</option>';
+            Propieta_1_options_str  += '<option value="Bibiano Martínez">Bibiano Martínez</option>';
+            Propieta_1_options_str  += '<option value="Bonifacio Horos">Bonifacio Horos</option>';
+            Propieta_1_options_str  += '<option value="Bonifacio Sepúlveda">Bonifacio Sepúlveda</option>';
+            Propieta_1_options_str  += '<option value="Brigida Bracamonte">Brigida Bracamonte</option>';
+            Propieta_1_options_str  += '<option value="Bruno Hernández">Bruno Hernández</option>';
+            Propieta_1_options_str  += '<option value="Bruno Pardo">Bruno Pardo</option>';
+            Propieta_1_options_str  += '<option value="Brígida Corrales">Brígida Corrales</option>';
+            Propieta_1_options_str  += '<option value="Buitimea">Buitimea</option>';
+            Propieta_1_options_str  += '<option value="C. Gallardo">C. Gallardo</option>';
+            Propieta_1_options_str  += '<option value="C. V. de Vega">C. V. de Vega</option>';
+            Propieta_1_options_str  += '<option value="CEMENTERIO">CEMENTERIO</option>';
+            Propieta_1_options_str  += '<option value="COMPAÑÍA DEL FERROCARRIL CANANEA RÍO YAQUI Y PACÍFCO">COMPAÑÍA DEL FERROCARRIL CANANEA RÍO YAQUI Y PACÍFCO</option>';
+            Propieta_1_options_str  += '<option value="Calixto Hernández">Calixto Hernández</option>';
+            Propieta_1_options_str  += '<option value="Calixto Rivera">Calixto Rivera</option>';
+            Propieta_1_options_str  += '<option value="Candelaria García">Candelaria García</option>';
+            Propieta_1_options_str  += '<option value="Candelaria Grijalva">Candelaria Grijalva</option>';
+            Propieta_1_options_str  += '<option value="Candelaria Ibarra">Candelaria Ibarra</option>';
+            Propieta_1_options_str  += '<option value="Candelaria Rodríguez">Candelaria Rodríguez</option>';
+            Propieta_1_options_str  += '<option value="Candelaria Yoquihue">Candelaria Yoquihue</option>';
+            Propieta_1_options_str  += '<option value="Candelario Félix">Candelario Félix</option>';
+            Propieta_1_options_str  += '<option value="Candido Ibarra">Candido Ibarra</option>';
+            Propieta_1_options_str  += '<option value="Candido Zazueta">Candido Zazueta</option>';
+            Propieta_1_options_str  += '<option value="Carlos Beltrán">Carlos Beltrán</option>';
+            Propieta_1_options_str  += '<option value="Carlos Flores">Carlos Flores</option>';
+            Propieta_1_options_str  += '<option value="Carlos G. Moreno">Carlos G. Moreno</option>';
+            Propieta_1_options_str  += '<option value="Carlos García">Carlos García</option>';
+            Propieta_1_options_str  += '<option value="Carlos Hale">Carlos Hale</option>';
+            Propieta_1_options_str  += '<option value="Carlos Molina">Carlos Molina</option>';
+            Propieta_1_options_str  += '<option value="Carlos Valenzuela">Carlos Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Carlos Verdugo">Carlos Verdugo</option>';
+            Propieta_1_options_str  += '<option value="Carlos Álvarez">Carlos Álvarez</option>';
+            Propieta_1_options_str  += '<option value="Carlota Duarte">Carlota Duarte</option>';
+            Propieta_1_options_str  += '<option value="Carlota Pardo">Carlota Pardo</option>';
+            Propieta_1_options_str  += '<option value="Carlota Salcido">Carlota Salcido</option>';
+            Propieta_1_options_str  += '<option value="Carlota Valenzuela">Carlota Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Carmen Armenta">Carmen Armenta</option>';
+            Propieta_1_options_str  += '<option value="Carmen Ballesteros">Carmen Ballesteros</option>';
+            Propieta_1_options_str  += '<option value="Carmen Borges">Carmen Borges</option>';
+            Propieta_1_options_str  += '<option value="Carmen Calau">Carmen Calau</option>';
+            Propieta_1_options_str  += '<option value="Carmen Cota">Carmen Cota</option>';
+            Propieta_1_options_str  += '<option value="Carmen Cruz">Carmen Cruz</option>';
+            Propieta_1_options_str  += '<option value="Carmen Dosal">Carmen Dosal</option>';
+            Propieta_1_options_str  += '<option value="Carmen Duarte">Carmen Duarte</option>';
+            Propieta_1_options_str  += '<option value="Carmen Encinas">Carmen Encinas</option>';
+            Propieta_1_options_str  += '<option value="Carmen Figueroa">Carmen Figueroa</option>';
+            Propieta_1_options_str  += '<option value="Carmen Félix">Carmen Félix</option>';
+            Propieta_1_options_str  += '<option value="Carmen Quiroz">Carmen Quiroz</option>';
+            Propieta_1_options_str  += '<option value="Carmen Rivera">Carmen Rivera</option>';
+            Propieta_1_options_str  += '<option value="Carmen Rochin">Carmen Rochin</option>';
+            Propieta_1_options_str  += '<option value="Carmen Sánchez">Carmen Sánchez</option>';
+            Propieta_1_options_str  += '<option value="Carmeno Guapo">Carmeno Guapo</option>';
+            Propieta_1_options_str  += '<option value="Carolina Valenzuela">Carolina Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Casilda Miranda">Casilda Miranda</option>';
+            Propieta_1_options_str  += '<option value="Castulo Gallardo">Castulo Gallardo</option>';
+            Propieta_1_options_str  += '<option value="Catarina Orduño">Catarina Orduño</option>';
+            Propieta_1_options_str  += '<option value="Catarino Burreta">Catarino Burreta</option>';
+            Propieta_1_options_str  += '<option value="Cayetano Iñigo">Cayetano Iñigo</option>';
+            Propieta_1_options_str  += '<option value="Cayetano Torres">Cayetano Torres</option>';
+            Propieta_1_options_str  += '<option value="Cayetano Valenzuela">Cayetano Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Cecilia Amarillas">Cecilia Amarillas</option>';
+            Propieta_1_options_str  += '<option value="Cecilia Ruiz">Cecilia Ruiz</option>';
+            Propieta_1_options_str  += '<option value="Cecilio Bajeca">Cecilio Bajeca</option>';
+            Propieta_1_options_str  += '<option value="Cecilio Castelo">Cecilio Castelo</option>';
+            Propieta_1_options_str  += '<option value="Cecilio Ruiz">Cecilio Ruiz</option>';
+            Propieta_1_options_str  += '<option value="Cenobio Bajeca">Cenobio Bajeca</option>';
+            Propieta_1_options_str  += '<option value="Cenobio Félix">Cenobio Félix</option>';
+            Propieta_1_options_str  += '<option value="Cenobio Ibarra">Cenobio Ibarra</option>';
+            Propieta_1_options_str  += '<option value="Cenobio Zazueta">Cenobio Zazueta</option>';
+            Propieta_1_options_str  += '<option value="Cirilo Molina">Cirilo Molina</option>';
+            Propieta_1_options_str  += '<option value="Clara López">Clara López</option>';
+            Propieta_1_options_str  += '<option value="Clara Matus">Clara Matus</option>';
+            Propieta_1_options_str  += '<option value="Clara Pablos">Clara Pablos</option>';
+            Propieta_1_options_str  += '<option value="Clara Yoquihue">Clara Yoquihue</option>';
+            Propieta_1_options_str  += '<option value="Claudio Gutiérrez">Claudio Gutiérrez</option>';
+            Propieta_1_options_str  += '<option value="Clemente Larini">Clemente Larini</option>';
+            Propieta_1_options_str  += '<option value="Cleofas Villa">Cleofas Villa</option>';
+            Propieta_1_options_str  += '<option value="Cleotilde Valenzuela">Cleotilde Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Clotilde Valenzuela">Clotilde Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Concepción Espinosa">Concepción Espinosa</option>';
+            Propieta_1_options_str  += '<option value="Concepción Hernández">Concepción Hernández</option>';
+            Propieta_1_options_str  += '<option value="Concepción Matus">Concepción Matus</option>';
+            Propieta_1_options_str  += '<option value="Concepción Osuna">Concepción Osuna</option>';
+            Propieta_1_options_str  += '<option value="Concepción Seamu">Concepción Seamu</option>';
+            Propieta_1_options_str  += '<option value="Concepción de la Pascua de Montero">Concepción de la Pascua de Montero</option>';
+            Propieta_1_options_str  += '<option value="Cosme Cruz">Cosme Cruz</option>';
+            Propieta_1_options_str  += '<option value="Cota Santos">Cota Santos</option>';
+            Propieta_1_options_str  += '<option value="Crecencia Ochoa">Crecencia Ochoa</option>';
+            Propieta_1_options_str  += '<option value="Crispín S. de Palomares">Crispín S. de Palomares</option>';
+            Propieta_1_options_str  += '<option value="Crispín de S. Palomares">Crispín de S. Palomares</option>';
+            Propieta_1_options_str  += '<option value="Cristobal F. Verdugo">Cristobal F. Verdugo</option>';
+            Propieta_1_options_str  += '<option value="Cristobal Verdugo">Cristobal Verdugo</option>';
+            Propieta_1_options_str  += '<option value="Cruz Castro">Cruz Castro</option>';
+            Propieta_1_options_str  += '<option value="Cruz Cruz">Cruz Cruz</option>';
+            Propieta_1_options_str  += '<option value="Cruz Fierro">Cruz Fierro</option>';
+            Propieta_1_options_str  += '<option value="Cruz H. Escalante">Cruz H. Escalante</option>';
+            Propieta_1_options_str  += '<option value="Cruz Ibarra">Cruz Ibarra</option>';
+            Propieta_1_options_str  += '<option value="Cruz Rivera">Cruz Rivera</option>';
+            Propieta_1_options_str  += '<option value="Cuca Valenzuela">Cuca Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Cutaël Matus">Cutaël Matus</option>';
+            Propieta_1_options_str  += '<option value="Cármen Borquez">Cármen Borquez</option>';
+            Propieta_1_options_str  += '<option value="Cármen Cuevas">Cármen Cuevas</option>';
+            Propieta_1_options_str  += '<option value="Cármen Domínguez">Cármen Domínguez</option>';
+            Propieta_1_options_str  += '<option value="Cástulo Gallardo">Cástulo Gallardo</option>';
+            Propieta_1_options_str  += '<option value="D. Perea">D. Perea</option>';
+            Propieta_1_options_str  += '<option value="Damaso Horos">Damaso Horos</option>';
+            Propieta_1_options_str  += '<option value="Damaso Álvarez">Damaso Álvarez</option>';
+            Propieta_1_options_str  += '<option value="Damian Ibarra">Damian Ibarra</option>';
+            Propieta_1_options_str  += '<option value="David Gaytán">David Gaytán</option>';
+            Propieta_1_options_str  += '<option value="Delf. Quiroz">Delf. Quiroz</option>';
+            Propieta_1_options_str  += '<option value="Delfino Esquer">Delfino Esquer</option>';
+            Propieta_1_options_str  += '<option value="Demeteria Verduzco">Demeteria Verduzco</option>';
+            Propieta_1_options_str  += '<option value="Demeterio Torres">Demeterio Torres</option>';
+            Propieta_1_options_str  += '<option value="Desiderio Murrieta">Desiderio Murrieta</option>';
+            Propieta_1_options_str  += '<option value="Dionisia Rivera">Dionisia Rivera</option>';
+            Propieta_1_options_str  += '<option value="Dionisio Cerín">Dionisio Cerín</option>';
+            Propieta_1_options_str  += '<option value="Dionisio Corral">Dionisio Corral</option>';
+            Propieta_1_options_str  += '<option value="Dionisio Ornelas">Dionisio Ornelas</option>';
+            Propieta_1_options_str  += '<option value="Dionisio Romero">Dionisio Romero</option>';
+            Propieta_1_options_str  += '<option value="Dionisio Valenzuela">Dionisio Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Dionisio Vega">Dionisio Vega</option>';
+            Propieta_1_options_str  += '<option value="Dolores">Dolores</option>';
+            Propieta_1_options_str  += '<option value="Dolores Amarillas">Dolores Amarillas</option>';
+            Propieta_1_options_str  += '<option value="Dolores Arvizu">Dolores Arvizu</option>';
+            Propieta_1_options_str  += '<option value="Dolores Baisea">Dolores Baisea</option>';
+            Propieta_1_options_str  += '<option value="Dolores Bibamea">Dolores Bibamea</option>';
+            Propieta_1_options_str  += '<option value="Dolores Campoy">Dolores Campoy</option>';
+            Propieta_1_options_str  += '<option value="Dolores Caumea">Dolores Caumea</option>';
+            Propieta_1_options_str  += '<option value="Dolores Cuevas">Dolores Cuevas</option>';
+            Propieta_1_options_str  += '<option value="Dolores Duarte">Dolores Duarte</option>';
+            Propieta_1_options_str  += '<option value="Dolores G. Noriega">Dolores G. Noriega</option>';
+            Propieta_1_options_str  += '<option value="Dolores Juana Baisea">Dolores Juana Baisea</option>';
+            Propieta_1_options_str  += '<option value="Dolores López">Dolores López</option>';
+            Propieta_1_options_str  += '<option value="Dolores Machi">Dolores Machi</option>';
+            Propieta_1_options_str  += '<option value="Dolores Matus">Dolores Matus</option>';
+            Propieta_1_options_str  += '<option value="Dolores Morales">Dolores Morales</option>';
+            Propieta_1_options_str  += '<option value="Dolores Quiroz">Dolores Quiroz</option>';
+            Propieta_1_options_str  += '<option value="Dolores Seamu">Dolores Seamu</option>';
+            Propieta_1_options_str  += '<option value="Dolores Valdez">Dolores Valdez</option>';
+            Propieta_1_options_str  += '<option value="Dolores Yoquihue">Dolores Yoquihue</option>';
+            Propieta_1_options_str  += '<option value="Dolores Zayas">Dolores Zayas</option>';
+            Propieta_1_options_str  += '<option value="Dolores de Samayoa">Dolores de Samayoa</option>';
+            Propieta_1_options_str  += '<option value="Dolores. López">Dolores. López</option>';
+            Propieta_1_options_str  += '<option value="Dominga Buitimea">Dominga Buitimea</option>';
+            Propieta_1_options_str  += '<option value="Dominga Molina">Dominga Molina</option>';
+            Propieta_1_options_str  += '<option value="Domingo Bachomapicio">Domingo Bachomapicio</option>';
+            Propieta_1_options_str  += '<option value="Domingo Buitimea">Domingo Buitimea</option>';
+            Propieta_1_options_str  += '<option value="Domingo Castro">Domingo Castro</option>';
+            Propieta_1_options_str  += '<option value="Domingo Jusacamea">Domingo Jusacamea</option>';
+            Propieta_1_options_str  += '<option value="Domingo Molina">Domingo Molina</option>';
+            Propieta_1_options_str  += '<option value="Domingo Márquez">Domingo Márquez</option>';
+            Propieta_1_options_str  += '<option value="Domingo Perég">Domingo Perég</option>';
+            Propieta_1_options_str  += '<option value="Domingo S. Gianola">Domingo S. Gianola</option>';
+            Propieta_1_options_str  += '<option value="Domingo Tachomea">Domingo Tachomea</option>';
+            Propieta_1_options_str  += '<option value="Donaciano García">Donaciano García</option>';
+            Propieta_1_options_str  += '<option value="Donato Rochin">Donato Rochin</option>';
+            Propieta_1_options_str  += '<option value="Donato Viera">Donato Viera</option>';
+            Propieta_1_options_str  += '<option value="Dorotea J.">Dorotea J.</option>';
+            Propieta_1_options_str  += '<option value="Doroteo Barroso">Doroteo Barroso</option>';
+            Propieta_1_options_str  += '<option value="Doroteo Cota">Doroteo Cota</option>';
+            Propieta_1_options_str  += '<option value="Edmundo Amaro">Edmundo Amaro</option>';
+            Propieta_1_options_str  += '<option value="Eduardo Cortés">Eduardo Cortés</option>';
+            Propieta_1_options_str  += '<option value="Eduardo Fierro">Eduardo Fierro</option>';
+            Propieta_1_options_str  += '<option value="Eduardo Léver">Eduardo Léver</option>';
+            Propieta_1_options_str  += '<option value="Eduardo Millanes">Eduardo Millanes</option>';
+            Propieta_1_options_str  += '<option value="Eduardo Montaño">Eduardo Montaño</option>';
+            Propieta_1_options_str  += '<option value="Eduardo Ramírez">Eduardo Ramírez</option>';
+            Propieta_1_options_str  += '<option value="Eduvigis Pérez">Eduvigis Pérez</option>';
+            Propieta_1_options_str  += '<option value="Efigeo Corrales">Efigeo Corrales</option>';
+            Propieta_1_options_str  += '<option value="Efígeo Amariego">Efígeo Amariego</option>';
+            Propieta_1_options_str  += '<option value="Elena Duarte">Elena Duarte</option>';
+            Propieta_1_options_str  += '<option value="Elena Esquer">Elena Esquer</option>';
+            Propieta_1_options_str  += '<option value="Elena Felix">Elena Felix</option>';
+            Propieta_1_options_str  += '<option value="Elena Félix">Elena Félix</option>';
+            Propieta_1_options_str  += '<option value="Elena Piña">Elena Piña</option>';
+            Propieta_1_options_str  += '<option value="Elena Quiroz">Elena Quiroz</option>';
+            Propieta_1_options_str  += '<option value="Eleno Vizcarra">Eleno Vizcarra</option>';
+            Propieta_1_options_str  += '<option value="Eligeo López">Eligeo López</option>';
+            Propieta_1_options_str  += '<option value="Eligeo Miranda">Eligeo Miranda</option>';
+            Propieta_1_options_str  += '<option value="Eloisa Rodríguez">Eloisa Rodríguez</option>';
+            Propieta_1_options_str  += '<option value="Eloisa Valenzuela">Eloisa Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Elías Zayas">Elías Zayas</option>';
+            Propieta_1_options_str  += '<option value="Emeterio Campo">Emeterio Campo</option>';
+            Propieta_1_options_str  += '<option value="Emeterio Campoy">Emeterio Campoy</option>';
+            Propieta_1_options_str  += '<option value="Emeterio Torres">Emeterio Torres</option>';
+            Propieta_1_options_str  += '<option value="Emigeo Quiroz">Emigeo Quiroz</option>';
+            Propieta_1_options_str  += '<option value="Emilia Duarte">Emilia Duarte</option>';
+            Propieta_1_options_str  += '<option value="Emilia Roman">Emilia Roman</option>';
+            Propieta_1_options_str  += '<option value="Emiliano Anguamea">Emiliano Anguamea</option>';
+            Propieta_1_options_str  += '<option value="Emiliano Castro">Emiliano Castro</option>';
+            Propieta_1_options_str  += '<option value="Emiliano Duarte">Emiliano Duarte</option>';
+            Propieta_1_options_str  += '<option value="Encinas">Encinas</option>';
+            Propieta_1_options_str  += '<option value="Enedina Rosas">Enedina Rosas</option>';
+            Propieta_1_options_str  += '<option value="Enrique Amaro">Enrique Amaro</option>';
+            Propieta_1_options_str  += '<option value="Enrique Astiazarán">Enrique Astiazarán</option>';
+            Propieta_1_options_str  += '<option value="Enrique Aztiazarán">Enrique Aztiazarán</option>';
+            Propieta_1_options_str  += '<option value="Enrique B. Mercado">Enrique B. Mercado</option>';
+            Propieta_1_options_str  += '<option value="Enrique C. Monteverde">Enrique C. Monteverde</option>';
+            Propieta_1_options_str  += '<option value="Enrique Eckner">Enrique Eckner</option>';
+            Propieta_1_options_str  += '<option value="Epigmenio Ortega">Epigmenio Ortega</option>';
+            Propieta_1_options_str  += '<option value="Epitacio Quiroz">Epitacio Quiroz</option>';
+            Propieta_1_options_str  += '<option value="Epitacio Sifuentes">Epitacio Sifuentes</option>';
+            Propieta_1_options_str  += '<option value="Espinosa">Espinosa</option>';
+            Propieta_1_options_str  += '<option value="Espir. González">Espir. González</option>';
+            Propieta_1_options_str  += '<option value="Espitia Rivera">Espitia Rivera</option>';
+            Propieta_1_options_str  += '<option value="Estanislao Vega">Estanislao Vega</option>';
+            Propieta_1_options_str  += '<option value="Esteban García">Esteban García</option>';
+            Propieta_1_options_str  += '<option value="Esteban Tetamea">Esteban Tetamea</option>';
+            Propieta_1_options_str  += '<option value="Estefana Yoquihue">Estefana Yoquihue</option>';
+            Propieta_1_options_str  += '<option value="Estefanía Rivera">Estefanía Rivera</option>';
+            Propieta_1_options_str  += '<option value="Estela Ramírez">Estela Ramírez</option>';
+            Propieta_1_options_str  += '<option value="Ester Buitimea">Ester Buitimea</option>';
+            Propieta_1_options_str  += '<option value="Estéban Borgaro">Estéban Borgaro</option>';
+            Propieta_1_options_str  += '<option value="Estéban Molina">Estéban Molina</option>';
+            Propieta_1_options_str  += '<option value="Eugenia López">Eugenia López</option>';
+            Propieta_1_options_str  += '<option value="Eulalia Valenzuela">Eulalia Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Eularia Cota">Eularia Cota</option>';
+            Propieta_1_options_str  += '<option value="Eulogio Zayas">Eulogio Zayas</option>';
+            Propieta_1_options_str  += '<option value="Euriano Suárez">Euriano Suárez</option>';
+            Propieta_1_options_str  += '<option value="Eustacio Barbosa">Eustacio Barbosa</option>';
+            Propieta_1_options_str  += '<option value="Eustaquio López">Eustaquio López</option>';
+            Propieta_1_options_str  += '<option value="Eustasio Barbosa">Eustasio Barbosa</option>';
+            Propieta_1_options_str  += '<option value="Eustasio Esquer">Eustasio Esquer</option>';
+            Propieta_1_options_str  += '<option value="Evarista Valencia">Evarista Valencia</option>';
+            Propieta_1_options_str  += '<option value="Evaristo Encinas">Evaristo Encinas</option>';
+            Propieta_1_options_str  += '<option value="Evaristo Zamorano">Evaristo Zamorano</option>';
+            Propieta_1_options_str  += '<option value="Ezequiel Torres">Ezequiel Torres</option>';
+            Propieta_1_options_str  += '<option value="F. Quiroz">F. Quiroz</option>';
+            Propieta_1_options_str  += '<option value="FUNDO LEGAL">FUNDO LEGAL</option>';
+            Propieta_1_options_str  += '<option value="Fabian Amarillas">Fabian Amarillas</option>';
+            Propieta_1_options_str  += '<option value="Faustina Corrales">Faustina Corrales</option>';
+            Propieta_1_options_str  += '<option value="Faustino Miranda">Faustino Miranda</option>';
+            Propieta_1_options_str  += '<option value="Faustino Murillo">Faustino Murillo</option>';
+            Propieta_1_options_str  += '<option value="Federico Conant">Federico Conant</option>';
+            Propieta_1_options_str  += '<option value="Federico Cota">Federico Cota</option>';
+            Propieta_1_options_str  += '<option value="Federico Spragn">Federico Spragn</option>';
+            Propieta_1_options_str  += '<option value="Felicia Castelo">Felicia Castelo</option>';
+            Propieta_1_options_str  += '<option value="Feliciana Ant. Valenzuela">Feliciana Ant. Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Feliciano Villarreal">Feliciano Villarreal</option>';
+            Propieta_1_options_str  += '<option value="Felicitas Sepúlveda">Felicitas Sepúlveda</option>';
+            Propieta_1_options_str  += '<option value="Felipa Beltrán">Felipa Beltrán</option>';
+            Propieta_1_options_str  += '<option value="Felipa Escalante">Felipa Escalante</option>';
+            Propieta_1_options_str  += '<option value="Felipa Molina">Felipa Molina</option>';
+            Propieta_1_options_str  += '<option value="Felipa Torres">Felipa Torres</option>';
+            Propieta_1_options_str  += '<option value="Felipe Félix">Felipe Félix</option>';
+            Propieta_1_options_str  += '<option value="Felipe Herrera">Felipe Herrera</option>';
+            Propieta_1_options_str  += '<option value="Felipe Leyva">Felipe Leyva</option>';
+            Propieta_1_options_str  += '<option value="Felipe Muñoz">Felipe Muñoz</option>';
+            Propieta_1_options_str  += '<option value="Felipe Tobicuy">Felipe Tobicuy</option>';
+            Propieta_1_options_str  += '<option value="Felipe Valencia">Felipe Valencia</option>';
+            Propieta_1_options_str  += '<option value="Felipe Yoquihue">Felipe Yoquihue</option>';
+            Propieta_1_options_str  += '<option value="Feliz. Esquer">Feliz. Esquer</option>';
+            Propieta_1_options_str  += '<option value="Felizardo Gutiérrez">Felizardo Gutiérrez</option>';
+            Propieta_1_options_str  += '<option value="Felizardo Zayas">Felizardo Zayas</option>';
+            Propieta_1_options_str  += '<option value="Fernando Caumea">Fernando Caumea</option>';
+            Propieta_1_options_str  += '<option value="Fernando Félix">Fernando Félix</option>';
+            Propieta_1_options_str  += '<option value="Fernando Ocaranza">Fernando Ocaranza</option>';
+            Propieta_1_options_str  += '<option value="Fernando Orozco">Fernando Orozco</option>';
+            Propieta_1_options_str  += '<option value="Fernando Robles">Fernando Robles</option>';
+            Propieta_1_options_str  += '<option value="Filiberto Zazueta">Filiberto Zazueta</option>';
+            Propieta_1_options_str  += '<option value="Filomeno Pacheco">Filomeno Pacheco</option>';
+            Propieta_1_options_str  += '<option value="Flavio Borquez">Flavio Borquez</option>';
+            Propieta_1_options_str  += '<option value="Florentina Gutiérrez">Florentina Gutiérrez</option>';
+            Propieta_1_options_str  += '<option value="Florentina Matus">Florentina Matus</option>';
+            Propieta_1_options_str  += '<option value="Florentina Núñez">Florentina Núñez</option>';
+            Propieta_1_options_str  += '<option value="Florentino R. Cruz">Florentino R. Cruz</option>';
+            Propieta_1_options_str  += '<option value="Flores Güagüis">Flores Güagüis</option>';
+            Propieta_1_options_str  += '<option value="Fortino Paredes">Fortino Paredes</option>';
+            Propieta_1_options_str  += '<option value="Fortino Robles">Fortino Robles</option>';
+            Propieta_1_options_str  += '<option value="Fortino Álvarez">Fortino Álvarez</option>';
+            Propieta_1_options_str  += '<option value="Fortunato Valenzuela">Fortunato Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Francisca">Francisca</option>';
+            Propieta_1_options_str  += '<option value="Francisca Amarillas">Francisca Amarillas</option>';
+            Propieta_1_options_str  += '<option value="Francisca Avilés">Francisca Avilés</option>';
+            Propieta_1_options_str  += '<option value="Francisca Flores">Francisca Flores</option>';
+            Propieta_1_options_str  += '<option value="Francisca Félix">Francisca Félix</option>';
+            Propieta_1_options_str  += '<option value="Francisca García">Francisca García</option>';
+            Propieta_1_options_str  += '<option value="Francisca Gerónima Valenzuela">Francisca Gerónima Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Francisca Inostrosa">Francisca Inostrosa</option>';
+            Propieta_1_options_str  += '<option value="Francisca Leyva">Francisca Leyva</option>';
+            Propieta_1_options_str  += '<option value="Francisca N. Peralta">Francisca N. Peralta</option>';
+            Propieta_1_options_str  += '<option value="Francisca Rodríguez">Francisca Rodríguez</option>';
+            Propieta_1_options_str  += '<option value="Francisca Yoquihue">Francisca Yoquihue</option>';
+            Propieta_1_options_str  += '<option value="Francisca Zayas">Francisca Zayas</option>';
+            Propieta_1_options_str  += '<option value="Francisca de Castro">Francisca de Castro</option>';
+            Propieta_1_options_str  += '<option value="Francisco">Francisco</option>';
+            Propieta_1_options_str  += '<option value="Francisco Amaries">Francisco Amaries</option>';
+            Propieta_1_options_str  += '<option value="Francisco Amarillas">Francisco Amarillas</option>';
+            Propieta_1_options_str  += '<option value="Francisco Aquibeamea">Francisco Aquibeamea</option>';
+            Propieta_1_options_str  += '<option value="Francisco Arenas">Francisco Arenas</option>';
+            Propieta_1_options_str  += '<option value="Francisco Barraso">Francisco Barraso</option>';
+            Propieta_1_options_str  += '<option value="Francisco Beltrán">Francisco Beltrán</option>';
+            Propieta_1_options_str  += '<option value="Francisco Cantúa">Francisco Cantúa</option>';
+            Propieta_1_options_str  += '<option value="Francisco Castillo">Francisco Castillo</option>';
+            Propieta_1_options_str  += '<option value="Francisco Castro">Francisco Castro</option>';
+            Propieta_1_options_str  += '<option value="Francisco Ciniza">Francisco Ciniza</option>';
+            Propieta_1_options_str  += '<option value="Francisco Coamea">Francisco Coamea</option>';
+            Propieta_1_options_str  += '<option value="Francisco Domínguez">Francisco Domínguez</option>';
+            Propieta_1_options_str  += '<option value="Francisco Duarte">Francisco Duarte</option>';
+            Propieta_1_options_str  += '<option value="Francisco Encinas">Francisco Encinas</option>';
+            Propieta_1_options_str  += '<option value="Francisco Flores">Francisco Flores</option>';
+            Propieta_1_options_str  += '<option value="Francisco Félix">Francisco Félix</option>';
+            Propieta_1_options_str  += '<option value="Francisco G. Félix">Francisco G. Félix</option>';
+            Propieta_1_options_str  += '<option value="Francisco García">Francisco García</option>';
+            Propieta_1_options_str  += '<option value="Francisco Gil">Francisco Gil</option>';
+            Propieta_1_options_str  += '<option value="Francisco Gutiérrez">Francisco Gutiérrez</option>';
+            Propieta_1_options_str  += '<option value="Francisco Leyva">Francisco Leyva</option>';
+            Propieta_1_options_str  += '<option value="Francisco López">Francisco López</option>';
+            Propieta_1_options_str  += '<option value="Francisco Man">Francisco Man</option>';
+            Propieta_1_options_str  += '<option value="Francisco Merced">Francisco Merced</option>';
+            Propieta_1_options_str  += '<option value="Francisco Miguel Matus">Francisco Miguel Matus</option>';
+            Propieta_1_options_str  += '<option value="Francisco Montijo">Francisco Montijo</option>';
+            Propieta_1_options_str  += '<option value="Francisco P. Lagarda">Francisco P. Lagarda</option>';
+            Propieta_1_options_str  += '<option value="Francisco Parada">Francisco Parada</option>';
+            Propieta_1_options_str  += '<option value="Francisco Peña">Francisco Peña</option>';
+            Propieta_1_options_str  += '<option value="Francisco Rivera">Francisco Rivera</option>';
+            Propieta_1_options_str  += '<option value="Francisco Robles">Francisco Robles</option>';
+            Propieta_1_options_str  += '<option value="Francisco Rochin">Francisco Rochin</option>';
+            Propieta_1_options_str  += '<option value="Francisco Rodríguez">Francisco Rodríguez</option>';
+            Propieta_1_options_str  += '<option value="Francisco Romero">Francisco Romero</option>';
+            Propieta_1_options_str  += '<option value="Francisco Rubio">Francisco Rubio</option>';
+            Propieta_1_options_str  += '<option value="Francisco Ruiz">Francisco Ruiz</option>';
+            Propieta_1_options_str  += '<option value="Francisco Seamu">Francisco Seamu</option>';
+            Propieta_1_options_str  += '<option value="Francisco Sepúlveda">Francisco Sepúlveda</option>';
+            Propieta_1_options_str  += '<option value="Francisco Sibamea">Francisco Sibamea</option>';
+            Propieta_1_options_str  += '<option value="Francisco Sionamea">Francisco Sionamea</option>';
+            Propieta_1_options_str  += '<option value="Francisco Suban">Francisco Suban</option>';
+            Propieta_1_options_str  += '<option value="Francisco Suárez">Francisco Suárez</option>';
+            Propieta_1_options_str  += '<option value="Francisco Tellechea">Francisco Tellechea</option>';
+            Propieta_1_options_str  += '<option value="Francisco Toledo">Francisco Toledo</option>';
+            Propieta_1_options_str  += '<option value="Francisco Torres">Francisco Torres</option>';
+            Propieta_1_options_str  += '<option value="Francisco Valenzuela">Francisco Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Francisco Vega">Francisco Vega</option>';
+            Propieta_1_options_str  += '<option value="Francisco Velazquez">Francisco Velazquez</option>';
+            Propieta_1_options_str  += '<option value="Francisco Zayas">Francisco Zayas</option>';
+            Propieta_1_options_str  += '<option value="Francisco Zazueta">Francisco Zazueta</option>';
+            Propieta_1_options_str  += '<option value="Francisco Ávila">Francisco Ávila</option>';
+            Propieta_1_options_str  += '<option value="Franco Grijalva">Franco Grijalva</option>';
+            Propieta_1_options_str  += '<option value="Franco Molina">Franco Molina</option>';
+            Propieta_1_options_str  += '<option value="Fundo Legal">Fundo Legal</option>';
+            Propieta_1_options_str  += '<option value="Fundo Legal Torim">Fundo Legal Torim</option>';
+            Propieta_1_options_str  += '<option value="Félix Barreza">Félix Barreza</option>';
+            Propieta_1_options_str  += '<option value="Félix Montiel">Félix Montiel</option>';
+            Propieta_1_options_str  += '<option value="Félix Samperio">Félix Samperio</option>';
+            Propieta_1_options_str  += '<option value="Félix Verdugo">Félix Verdugo</option>';
+            Propieta_1_options_str  += '<option value="Gabino Villa">Gabino Villa</option>';
+            Propieta_1_options_str  += '<option value="Gabriel Batriz">Gabriel Batriz</option>';
+            Propieta_1_options_str  += '<option value="Gabriel Buitimea">Gabriel Buitimea</option>';
+            Propieta_1_options_str  += '<option value="Gabriel Pascopomea">Gabriel Pascopomea</option>';
+            Propieta_1_options_str  += '<option value="Galvez Gutiérrez">Galvez Gutiérrez</option>';
+            Propieta_1_options_str  += '<option value="Gaspar Zaragoza">Gaspar Zaragoza</option>';
+            Propieta_1_options_str  += '<option value="Genaro Cutaël">Genaro Cutaël</option>';
+            Propieta_1_options_str  += '<option value="Genovevo Moreno">Genovevo Moreno</option>';
+            Propieta_1_options_str  += '<option value="Gerardo R. Valenzuela">Gerardo R. Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Gerardo Valenzuela">Gerardo Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Geronima Salcido">Geronima Salcido</option>';
+            Propieta_1_options_str  += '<option value="Gertrudis (Murillo)">Gertrudis (Murillo)</option>';
+            Propieta_1_options_str  += '<option value="Gertrudis Ayala">Gertrudis Ayala</option>';
+            Propieta_1_options_str  += '<option value="Gertrudis Conant">Gertrudis Conant</option>';
+            Propieta_1_options_str  += '<option value="Gertrudis Leyva">Gertrudis Leyva</option>';
+            Propieta_1_options_str  += '<option value="Gertrudis Valenzuela">Gertrudis Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Gonzaga Duarte">Gonzaga Duarte</option>';
+            Propieta_1_options_str  += '<option value="Gonzaga Sol">Gonzaga Sol</option>';
+            Propieta_1_options_str  += '<option value="Gonzalo Zazueta">Gonzalo Zazueta</option>';
+            Propieta_1_options_str  += '<option value="Gral. Agustín García">Gral. Agustín García</option>';
+            Propieta_1_options_str  += '<option value="Gregorio Chavez">Gregorio Chavez</option>';
+            Propieta_1_options_str  += '<option value="Gregorio González">Gregorio González</option>';
+            Propieta_1_options_str  += '<option value="Gregorio Valenzuela">Gregorio Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Gregorio Verdugo">Gregorio Verdugo</option>';
+            Propieta_1_options_str  += '<option value="Guadalupe Baldenegro">Guadalupe Baldenegro</option>';
+            Propieta_1_options_str  += '<option value="Guadalupe Buitimea">Guadalupe Buitimea</option>';
+            Propieta_1_options_str  += '<option value="Guadalupe Duarte">Guadalupe Duarte</option>';
+            Propieta_1_options_str  += '<option value="Guadalupe Encinas">Guadalupe Encinas</option>';
+            Propieta_1_options_str  += '<option value="Guadalupe Esquer">Guadalupe Esquer</option>';
+            Propieta_1_options_str  += '<option value="Guadalupe F.">Guadalupe F.</option>';
+            Propieta_1_options_str  += '<option value="Guadalupe Foxz">Guadalupe Foxz</option>';
+            Propieta_1_options_str  += '<option value="Guadalupe Frías">Guadalupe Frías</option>';
+            Propieta_1_options_str  += '<option value="Guadalupe Félix">Guadalupe Félix</option>';
+            Propieta_1_options_str  += '<option value="Guadalupe Galaz">Guadalupe Galaz</option>';
+            Propieta_1_options_str  += '<option value="Guadalupe Gasca">Guadalupe Gasca</option>';
+            Propieta_1_options_str  += '<option value="Guadalupe Jusacamea">Guadalupe Jusacamea</option>';
+            Propieta_1_options_str  += '<option value="Guadalupe Larini">Guadalupe Larini</option>';
+            Propieta_1_options_str  += '<option value="Guadalupe Mendoza">Guadalupe Mendoza</option>';
+            Propieta_1_options_str  += '<option value="Guadalupe Montaño">Guadalupe Montaño</option>';
+            Propieta_1_options_str  += '<option value="Guadalupe O. de Aguilar">Guadalupe O. de Aguilar</option>';
+            Propieta_1_options_str  += '<option value="Guadalupe Ramírez">Guadalupe Ramírez</option>';
+            Propieta_1_options_str  += '<option value="Guadalupe Rochin">Guadalupe Rochin</option>';
+            Propieta_1_options_str  += '<option value="Guadalupe Romero">Guadalupe Romero</option>';
+            Propieta_1_options_str  += '<option value="Guadalupe Sahanabia">Guadalupe Sahanabia</option>';
+            Propieta_1_options_str  += '<option value="Guadalupe Salcido">Guadalupe Salcido</option>';
+            Propieta_1_options_str  += '<option value="Guadalupe Tellechea">Guadalupe Tellechea</option>';
+            Propieta_1_options_str  += '<option value="Guadalupe Valenzuela">Guadalupe Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Guadalupe Vega">Guadalupe Vega</option>';
+            Propieta_1_options_str  += '<option value="Guadalupe Yepis">Guadalupe Yepis</option>';
+            Propieta_1_options_str  += '<option value="Guadalupe Zamorano">Guadalupe Zamorano</option>';
+            Propieta_1_options_str  += '<option value="Guillermo Baumea">Guillermo Baumea</option>';
+            Propieta_1_options_str  += '<option value="Gumersindo Luna">Gumersindo Luna</option>';
+            Propieta_1_options_str  += '<option value="Gustavo Amaro">Gustavo Amaro</option>';
+            Propieta_1_options_str  += '<option value="Gustavo Cuevas">Gustavo Cuevas</option>';
+            Propieta_1_options_str  += '<option value="H. F. Morgan">H. F. Morgan</option>';
+            Propieta_1_options_str  += '<option value="Haros Reyes">Haros Reyes</option>';
+            Propieta_1_options_str  += '<option value="Heraclia Valenzuela">Heraclia Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Heriberto Rodríguez">Heriberto Rodríguez</option>';
+            Propieta_1_options_str  += '<option value="Heriberto Rosas">Heriberto Rosas</option>';
+            Propieta_1_options_str  += '<option value="Hermenegildo Ibarra">Hermenegildo Ibarra</option>';
+            Propieta_1_options_str  += '<option value="Hermenegildo Valenzuela">Hermenegildo Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Hermita Valdez">Hermita Valdez</option>';
+            Propieta_1_options_str  += '<option value="Hermolao Torres">Hermolao Torres</option>';
+            Propieta_1_options_str  += '<option value="Heroldo Valdez">Heroldo Valdez</option>';
+            Propieta_1_options_str  += '<option value="Hexiquia Rivera">Hexiquia Rivera</option>';
+            Propieta_1_options_str  += '<option value="Hil. Terminel">Hil. Terminel</option>';
+            Propieta_1_options_str  += '<option value="Hilario Arce">Hilario Arce</option>';
+            Propieta_1_options_str  += '<option value="Hilario Jusacamea">Hilario Jusacamea</option>';
+            Propieta_1_options_str  += '<option value="Hilario Rivas">Hilario Rivas</option>';
+            Propieta_1_options_str  += '<option value="Hilario Ruiz">Hilario Ruiz</option>';
+            Propieta_1_options_str  += '<option value="Hilario Valencia">Hilario Valencia</option>';
+            Propieta_1_options_str  += '<option value="Hilario y Juana Buitimea">Hilario y Juana Buitimea</option>';
+            Propieta_1_options_str  += '<option value="Hipólito Baumea">Hipólito Baumea</option>';
+            Propieta_1_options_str  += '<option value="Hipólito Tiscomea">Hipólito Tiscomea</option>';
+            Propieta_1_options_str  += '<option value="Humberto Moreno">Humberto Moreno</option>';
+            Propieta_1_options_str  += '<option value="Iganacia María Seamu">Iganacia María Seamu</option>';
+            Propieta_1_options_str  += '<option value="Igancio Espinosa">Igancio Espinosa</option>';
+            Propieta_1_options_str  += '<option value="Ignacia Valdez">Ignacia Valdez</option>';
+            Propieta_1_options_str  += '<option value="Ignaciio Mauie">Ignaciio Mauie</option>';
+            Propieta_1_options_str  += '<option value="Ignacio">Ignacio</option>';
+            Propieta_1_options_str  += '<option value="Ignacio Acosta">Ignacio Acosta</option>';
+            Propieta_1_options_str  += '<option value="Ignacio Amaro">Ignacio Amaro</option>';
+            Propieta_1_options_str  += '<option value="Ignacio Andrade">Ignacio Andrade</option>';
+            Propieta_1_options_str  += '<option value="Ignacio Buitimea">Ignacio Buitimea</option>';
+            Propieta_1_options_str  += '<option value="Ignacio Castro">Ignacio Castro</option>';
+            Propieta_1_options_str  += '<option value="Ignacio Coamea">Ignacio Coamea</option>';
+            Propieta_1_options_str  += '<option value="Ignacio Cuaguis">Ignacio Cuaguis</option>';
+            Propieta_1_options_str  += '<option value="Ignacio E. Montaño">Ignacio E. Montaño</option>';
+            Propieta_1_options_str  += '<option value="Ignacio Jamescomea">Ignacio Jamescomea</option>';
+            Propieta_1_options_str  += '<option value="Ignacio Jepoamea">Ignacio Jepoamea</option>';
+            Propieta_1_options_str  += '<option value="Ignacio Matus">Ignacio Matus</option>';
+            Propieta_1_options_str  += '<option value="Ignacio Molina">Ignacio Molina</option>';
+            Propieta_1_options_str  += '<option value="Ignacio Montaño">Ignacio Montaño</option>';
+            Propieta_1_options_str  += '<option value="Ignacio Pablos">Ignacio Pablos</option>';
+            Propieta_1_options_str  += '<option value="Ignacio Piña">Ignacio Piña</option>';
+            Propieta_1_options_str  += '<option value="Ignacio Quiroz">Ignacio Quiroz</option>';
+            Propieta_1_options_str  += '<option value="Ignacio Rivera">Ignacio Rivera</option>';
+            Propieta_1_options_str  += '<option value="Ignacio Romero">Ignacio Romero</option>';
+            Propieta_1_options_str  += '<option value="Ignacio Salcido">Ignacio Salcido</option>';
+            Propieta_1_options_str  += '<option value="Ignacio Saptemea">Ignacio Saptemea</option>';
+            Propieta_1_options_str  += '<option value="Ignacio Tamsicomea">Ignacio Tamsicomea</option>';
+            Propieta_1_options_str  += '<option value="Ignacio Tiscomea">Ignacio Tiscomea</option>';
+            Propieta_1_options_str  += '<option value="Ignacio Valenzuela">Ignacio Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Ignacio Yocfman">Ignacio Yocfman</option>';
+            Propieta_1_options_str  += '<option value="Ignacio Zúñiga">Ignacio Zúñiga</option>';
+            Propieta_1_options_str  += '<option value="Ignacio Álvarez">Ignacio Álvarez</option>';
+            Propieta_1_options_str  += '<option value="Inocente Molina">Inocente Molina</option>';
+            Propieta_1_options_str  += '<option value="Isabel Armenta">Isabel Armenta</option>';
+            Propieta_1_options_str  += '<option value="Isabel Corrales">Isabel Corrales</option>';
+            Propieta_1_options_str  += '<option value="Isabel Encinas">Isabel Encinas</option>';
+            Propieta_1_options_str  += '<option value="Isabel Félix">Isabel Félix</option>';
+            Propieta_1_options_str  += '<option value="Isabel García">Isabel García</option>';
+            Propieta_1_options_str  += '<option value="Isabel González">Isabel González</option>';
+            Propieta_1_options_str  += '<option value="Isabel Matus">Isabel Matus</option>';
+            Propieta_1_options_str  += '<option value="Isabel Paz">Isabel Paz</option>';
+            Propieta_1_options_str  += '<option value="Isabel Rivera">Isabel Rivera</option>';
+            Propieta_1_options_str  += '<option value="Isabel Yoquihue">Isabel Yoquihue</option>';
+            Propieta_1_options_str  += '<option value="Isidoro Rivera">Isidoro Rivera</option>';
+            Propieta_1_options_str  += '<option value="Isidro Armenta">Isidro Armenta</option>';
+            Propieta_1_options_str  += '<option value="Isidro Valenzuela">Isidro Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="J. A. Salas">J. A. Salas</option>';
+            Propieta_1_options_str  += '<option value="J. C. Echand">J. C. Echand</option>';
+            Propieta_1_options_str  += '<option value="J. Félix">J. Félix</option>';
+            Propieta_1_options_str  += '<option value="J. M. Paredes">J. M. Paredes</option>';
+            Propieta_1_options_str  += '<option value="J. M. Zamora">J. M. Zamora</option>';
+            Propieta_1_options_str  += '<option value="J. Refugio Velazco">J. Refugio Velazco</option>';
+            Propieta_1_options_str  += '<option value="J. Salas">J. Salas</option>';
+            Propieta_1_options_str  += '<option value="J. de la Cruz">J. de la Cruz</option>';
+            Propieta_1_options_str  += '<option value="Jacoba Cota">Jacoba Cota</option>';
+            Propieta_1_options_str  += '<option value="Javier Leyva">Javier Leyva</option>';
+            Propieta_1_options_str  += '<option value="Jerónimo Fierro">Jerónimo Fierro</option>';
+            Propieta_1_options_str  += '<option value="Jesñus Rosas">Jesñus Rosas</option>';
+            Propieta_1_options_str  += '<option value="Jesús A. Salazar">Jesús A. Salazar</option>';
+            Propieta_1_options_str  += '<option value="Jesús Arenas">Jesús Arenas</option>';
+            Propieta_1_options_str  += '<option value="Jesús Armenta">Jesús Armenta</option>';
+            Propieta_1_options_str  += '<option value="Jesús Ayala">Jesús Ayala</option>';
+            Propieta_1_options_str  += '<option value="Jesús Buitimea">Jesús Buitimea</option>';
+            Propieta_1_options_str  += '<option value="Jesús Carrera">Jesús Carrera</option>';
+            Propieta_1_options_str  += '<option value="Jesús Castelo">Jesús Castelo</option>';
+            Propieta_1_options_str  += '<option value="Jesús Ceballos">Jesús Ceballos</option>';
+            Propieta_1_options_str  += '<option value="Jesús Chávez">Jesús Chávez</option>';
+            Propieta_1_options_str  += '<option value="Jesús Corrales">Jesús Corrales</option>';
+            Propieta_1_options_str  += '<option value="Jesús Cruz">Jesús Cruz</option>';
+            Propieta_1_options_str  += '<option value="Jesús Duarte">Jesús Duarte</option>';
+            Propieta_1_options_str  += '<option value="Jesús Esquer">Jesús Esquer</option>';
+            Propieta_1_options_str  += '<option value="Jesús F. Encinas">Jesús F. Encinas</option>';
+            Propieta_1_options_str  += '<option value="Jesús Flores">Jesús Flores</option>';
+            Propieta_1_options_str  += '<option value="Jesús Félix">Jesús Félix</option>';
+            Propieta_1_options_str  += '<option value="Jesús Grijalva">Jesús Grijalva</option>';
+            Propieta_1_options_str  += '<option value="Jesús Güereña">Jesús Güereña</option>';
+            Propieta_1_options_str  += '<option value="Jesús Ibarra">Jesús Ibarra</option>';
+            Propieta_1_options_str  += '<option value="Jesús J. Encinas">Jesús J. Encinas</option>';
+            Propieta_1_options_str  += '<option value="Jesús José Samayoa">Jesús José Samayoa</option>';
+            Propieta_1_options_str  += '<option value="Jesús Jusacamea">Jesús Jusacamea</option>';
+            Propieta_1_options_str  += '<option value="Jesús Lagarda">Jesús Lagarda</option>';
+            Propieta_1_options_str  += '<option value="Jesús López">Jesús López</option>';
+            Propieta_1_options_str  += '<option value="Jesús M. Rochin">Jesús M. Rochin</option>';
+            Propieta_1_options_str  += '<option value="Jesús Martínez">Jesús Martínez</option>';
+            Propieta_1_options_str  += '<option value="Jesús María Gutiérrez">Jesús María Gutiérrez</option>';
+            Propieta_1_options_str  += '<option value="Jesús María Ibarra">Jesús María Ibarra</option>';
+            Propieta_1_options_str  += '<option value="Jesús María Jusacamea">Jesús María Jusacamea</option>';
+            Propieta_1_options_str  += '<option value="Jesús Mendez">Jesús Mendez</option>';
+            Propieta_1_options_str  += '<option value="Jesús Mendivil">Jesús Mendivil</option>';
+            Propieta_1_options_str  += '<option value="Jesús Miranda">Jesús Miranda</option>';
+            Propieta_1_options_str  += '<option value="Jesús Nazumea">Jesús Nazumea</option>';
+            Propieta_1_options_str  += '<option value="Jesús Nieblasi">Jesús Nieblasi</option>';
+            Propieta_1_options_str  += '<option value="Jesús Ochoa">Jesús Ochoa</option>';
+            Propieta_1_options_str  += '<option value="Jesús Quintero">Jesús Quintero</option>';
+            Propieta_1_options_str  += '<option value="Jesús Robles">Jesús Robles</option>';
+            Propieta_1_options_str  += '<option value="Jesús Rochin">Jesús Rochin</option>';
+            Propieta_1_options_str  += '<option value="Jesús Romero">Jesús Romero</option>';
+            Propieta_1_options_str  += '<option value="Jesús Rosas">Jesús Rosas</option>';
+            Propieta_1_options_str  += '<option value="Jesús Rubio">Jesús Rubio</option>';
+            Propieta_1_options_str  += '<option value="Jesús Ruiz">Jesús Ruiz</option>';
+            Propieta_1_options_str  += '<option value="Jesús S. Carranza">Jesús S. Carranza</option>';
+            Propieta_1_options_str  += '<option value="Jesús Samayoa">Jesús Samayoa</option>';
+            Propieta_1_options_str  += '<option value="Jesús Tamea">Jesús Tamea</option>';
+            Propieta_1_options_str  += '<option value="Jesús Urquides">Jesús Urquides</option>';
+            Propieta_1_options_str  += '<option value="Jesús Valenzuela">Jesús Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Jesús Vega">Jesús Vega</option>';
+            Propieta_1_options_str  += '<option value="Jesús Velez">Jesús Velez</option>';
+            Propieta_1_options_str  += '<option value="Jesús Yepis">Jesús Yepis</option>';
+            Propieta_1_options_str  += '<option value="Jesús Zeaboica">Jesús Zeaboica</option>';
+            Propieta_1_options_str  += '<option value="Joaquina Seamu">Joaquina Seamu</option>';
+            Propieta_1_options_str  += '<option value="Joaquín Buitimea">Joaquín Buitimea</option>';
+            Propieta_1_options_str  += '<option value="Joaquín Castelo">Joaquín Castelo</option>';
+            Propieta_1_options_str  += '<option value="Joaquín Cualubi">Joaquín Cualubi</option>';
+            Propieta_1_options_str  += '<option value="Joaquín Fontes">Joaquín Fontes</option>';
+            Propieta_1_options_str  += '<option value="Joaquín Huicoy">Joaquín Huicoy</option>';
+            Propieta_1_options_str  += '<option value="Joaquín Jecari">Joaquín Jecari</option>';
+            Propieta_1_options_str  += '<option value="Joaquín Osuna">Joaquín Osuna</option>';
+            Propieta_1_options_str  += '<option value="Joaquín Pablos">Joaquín Pablos</option>';
+            Propieta_1_options_str  += '<option value="Joaquín Preciado">Joaquín Preciado</option>';
+            Propieta_1_options_str  += '<option value="Joaquín Rochin">Joaquín Rochin</option>';
+            Propieta_1_options_str  += '<option value="Joaquín Valencia">Joaquín Valencia</option>';
+            Propieta_1_options_str  += '<option value="Joaquín Valenzuela">Joaquín Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Jorge">Jorge</option>';
+            Propieta_1_options_str  += '<option value="Jorge Corrales">Jorge Corrales</option>';
+            Propieta_1_options_str  += '<option value="Jorge García">Jorge García</option>';
+            Propieta_1_options_str  += '<option value="Jorge y Cristina Rosas">Jorge y Cristina Rosas</option>';
+            Propieta_1_options_str  += '<option value="Jose María Buitimea">Jose María Buitimea</option>';
+            Propieta_1_options_str  += '<option value="Jose María Herreros">Jose María Herreros</option>';
+            Propieta_1_options_str  += '<option value="Jose María Quiroz">Jose María Quiroz</option>';
+            Propieta_1_options_str  += '<option value="Josefa Armenta">Josefa Armenta</option>';
+            Propieta_1_options_str  += '<option value="Josefa Cuen">Josefa Cuen</option>';
+            Propieta_1_options_str  += '<option value="Josefa Jamescomea">Josefa Jamescomea</option>';
+            Propieta_1_options_str  += '<option value="Josefa Jamyola">Josefa Jamyola</option>';
+            Propieta_1_options_str  += '<option value="Josefa Lenes">Josefa Lenes</option>';
+            Propieta_1_options_str  += '<option value="Josefa López">Josefa López</option>';
+            Propieta_1_options_str  += '<option value="Josefa Machiba">Josefa Machiba</option>';
+            Propieta_1_options_str  += '<option value="Josefa Matus">Josefa Matus</option>';
+            Propieta_1_options_str  += '<option value="Josefa Mendoza">Josefa Mendoza</option>';
+            Propieta_1_options_str  += '<option value="Josefa Murrieta">Josefa Murrieta</option>';
+            Propieta_1_options_str  += '<option value="Josefa Pablos">Josefa Pablos</option>';
+            Propieta_1_options_str  += '<option value="Josefa Paredes">Josefa Paredes</option>';
+            Propieta_1_options_str  += '<option value="Josefa Reyes">Josefa Reyes</option>';
+            Propieta_1_options_str  += '<option value="Josefa Ruiz">Josefa Ruiz</option>';
+            Propieta_1_options_str  += '<option value="Josefa Seamu">Josefa Seamu</option>';
+            Propieta_1_options_str  += '<option value="Josefa Sombra">Josefa Sombra</option>';
+            Propieta_1_options_str  += '<option value="Josefa Valencia">Josefa Valencia</option>';
+            Propieta_1_options_str  += '<option value="Josefa Vega">Josefa Vega</option>';
+            Propieta_1_options_str  += '<option value="Josefa Velázquez">Josefa Velázquez</option>';
+            Propieta_1_options_str  += '<option value="Josefa Villa">Josefa Villa</option>';
+            Propieta_1_options_str  += '<option value="Josefa Yoquihue">Josefa Yoquihue</option>';
+            Propieta_1_options_str  += '<option value="Josefina Martínez">Josefina Martínez</option>';
+            Propieta_1_options_str  += '<option value="Josefina y Francisca Martínez">Josefina y Francisca Martínez</option>';
+            Propieta_1_options_str  += '<option value="José Antonio Ochoa">José Antonio Ochoa</option>';
+            Propieta_1_options_str  += '<option value="José Barceló">José Barceló</option>';
+            Propieta_1_options_str  += '<option value="José Beteme">José Beteme</option>';
+            Propieta_1_options_str  += '<option value="José Buitimea">José Buitimea</option>';
+            Propieta_1_options_str  += '<option value="José C. Dibene">José C. Dibene</option>';
+            Propieta_1_options_str  += '<option value="José Cajeme">José Cajeme</option>';
+            Propieta_1_options_str  += '<option value="José Caumea">José Caumea</option>';
+            Propieta_1_options_str  += '<option value="José Ceballos">José Ceballos</option>';
+            Propieta_1_options_str  += '<option value="José Choqui">José Choqui</option>';
+            Propieta_1_options_str  += '<option value="José Coamea">José Coamea</option>';
+            Propieta_1_options_str  += '<option value="José Debine">José Debine</option>';
+            Propieta_1_options_str  += '<option value="José Duarte">José Duarte</option>';
+            Propieta_1_options_str  += '<option value="José E. Esquer">José E. Esquer</option>';
+            Propieta_1_options_str  += '<option value="José E. Gaytán">José E. Gaytán</option>';
+            Propieta_1_options_str  += '<option value="José Encinas">José Encinas</option>';
+            Propieta_1_options_str  += '<option value="José Espinosa">José Espinosa</option>';
+            Propieta_1_options_str  += '<option value="José Esquer">José Esquer</option>';
+            Propieta_1_options_str  += '<option value="José Flores">José Flores</option>';
+            Propieta_1_options_str  += '<option value="José G. Jiménez">José G. Jiménez</option>';
+            Propieta_1_options_str  += '<option value="José García">José García</option>';
+            Propieta_1_options_str  += '<option value="José Geofroy">José Geofroy</option>';
+            Propieta_1_options_str  += '<option value="José Güereña">José Güereña</option>';
+            Propieta_1_options_str  += '<option value="José J. Félix">José J. Félix</option>';
+            Propieta_1_options_str  += '<option value="José J. Molina">José J. Molina</option>';
+            Propieta_1_options_str  += '<option value="José J. Sol">José J. Sol</option>';
+            Propieta_1_options_str  += '<option value="José Juan Cerecer">José Juan Cerecer</option>';
+            Propieta_1_options_str  += '<option value="José Luis Maza">José Luis Maza</option>';
+            Propieta_1_options_str  += '<option value="José Lujan">José Lujan</option>';
+            Propieta_1_options_str  += '<option value="José M. Bacasegua">José M. Bacasegua</option>';
+            Propieta_1_options_str  += '<option value="José M. Montes">José M. Montes</option>';
+            Propieta_1_options_str  += '<option value="José M. Tellechea">José M. Tellechea</option>';
+            Propieta_1_options_str  += '<option value="José MAría Alapicio">José MAría Alapicio</option>';
+            Propieta_1_options_str  += '<option value="José MAría Guayvil">José MAría Guayvil</option>';
+            Propieta_1_options_str  += '<option value="José Marestain">José Marestain</option>';
+            Propieta_1_options_str  += '<option value="José María Bórquez">José María Bórquez</option>';
+            Propieta_1_options_str  += '<option value="José María Comsua">José María Comsua</option>';
+            Propieta_1_options_str  += '<option value="José María Duarte">José María Duarte</option>';
+            Propieta_1_options_str  += '<option value="José María Espinosa">José María Espinosa</option>';
+            Propieta_1_options_str  += '<option value="José María Félix">José María Félix</option>';
+            Propieta_1_options_str  += '<option value="José María González">José María González</option>';
+            Propieta_1_options_str  += '<option value="José María Herrera">José María Herrera</option>';
+            Propieta_1_options_str  += '<option value="José María Herreros">José María Herreros</option>';
+            Propieta_1_options_str  += '<option value="José María López">José María López</option>';
+            Propieta_1_options_str  += '<option value="José María Martínez">José María Martínez</option>';
+            Propieta_1_options_str  += '<option value="José María Maza">José María Maza</option>';
+            Propieta_1_options_str  += '<option value="José María Molina">José María Molina</option>';
+            Propieta_1_options_str  += '<option value="José María Paredes">José María Paredes</option>';
+            Propieta_1_options_str  += '<option value="José María Rubio">José María Rubio</option>';
+            Propieta_1_options_str  += '<option value="José María Tetamea">José María Tetamea</option>';
+            Propieta_1_options_str  += '<option value="José María Torres">José María Torres</option>';
+            Propieta_1_options_str  += '<option value="José María Via">José María Via</option>';
+            Propieta_1_options_str  += '<option value="José María Villa">José María Villa</option>';
+            Propieta_1_options_str  += '<option value="José Matus">José Matus</option>';
+            Propieta_1_options_str  += '<option value="José Miguel Conejisa">José Miguel Conejisa</option>';
+            Propieta_1_options_str  += '<option value="José Molina">José Molina</option>';
+            Propieta_1_options_str  += '<option value="José Morales">José Morales</option>';
+            Propieta_1_options_str  += '<option value="José Moreno">José Moreno</option>';
+            Propieta_1_options_str  += '<option value="José Ochoa">José Ochoa</option>';
+            Propieta_1_options_str  += '<option value="José Otero">José Otero</option>';
+            Propieta_1_options_str  += '<option value="José Quiroz">José Quiroz</option>';
+            Propieta_1_options_str  += '<option value="José R. Padilla">José R. Padilla</option>';
+            Propieta_1_options_str  += '<option value="José Ramírez">José Ramírez</option>';
+            Propieta_1_options_str  += '<option value="José Rosas">José Rosas</option>';
+            Propieta_1_options_str  += '<option value="José S. Valenzuela">José S. Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="José Santos">José Santos</option>';
+            Propieta_1_options_str  += '<option value="José Sariaba">José Sariaba</option>';
+            Propieta_1_options_str  += '<option value="José Suárez">José Suárez</option>';
+            Propieta_1_options_str  += '<option value="José Tesirasehua">José Tesirasehua</option>';
+            Propieta_1_options_str  += '<option value="José Trujillo">José Trujillo</option>';
+            Propieta_1_options_str  += '<option value="José Valenzuela">José Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="José Vega">José Vega</option>';
+            Propieta_1_options_str  += '<option value="José Visaiva">José Visaiva</option>';
+            Propieta_1_options_str  += '<option value="José Yepis">José Yepis</option>';
+            Propieta_1_options_str  += '<option value="José Zayas">José Zayas</option>';
+            Propieta_1_options_str  += '<option value="José de Guadalupe García">José de Guadalupe García</option>';
+            Propieta_1_options_str  += '<option value="José de Jesús Nido">José de Jesús Nido</option>';
+            Propieta_1_options_str  += '<option value="José Álvarez">José Álvarez</option>';
+            Propieta_1_options_str  += '<option value="Jovita García">Jovita García</option>';
+            Propieta_1_options_str  += '<option value="Jovita de Torres">Jovita de Torres</option>';
+            Propieta_1_options_str  += '<option value="Juan">Juan</option>';
+            Propieta_1_options_str  += '<option value="Juan Alapicio">Juan Alapicio</option>';
+            Propieta_1_options_str  += '<option value="Juan Ania">Juan Ania</option>';
+            Propieta_1_options_str  += '<option value="Juan B. Enriquez">Juan B. Enriquez</option>';
+            Propieta_1_options_str  += '<option value="Juan Bacasegua">Juan Bacasegua</option>';
+            Propieta_1_options_str  += '<option value="Juan Barreza">Juan Barreza</option>';
+            Propieta_1_options_str  += '<option value="Juan Barroso">Juan Barroso</option>';
+            Propieta_1_options_str  += '<option value="Juan Basehua">Juan Basehua</option>';
+            Propieta_1_options_str  += '<option value="Juan Bautista Pedefouck">Juan Bautista Pedefouck</option>';
+            Propieta_1_options_str  += '<option value="Juan Bayeca">Juan Bayeca</option>';
+            Propieta_1_options_str  += '<option value="Juan Beltrán">Juan Beltrán</option>';
+            Propieta_1_options_str  += '<option value="Juan Buitimea">Juan Buitimea</option>';
+            Propieta_1_options_str  += '<option value="Juan C. Echande">Juan C. Echande</option>';
+            Propieta_1_options_str  += '<option value="Juan Casia">Juan Casia</option>';
+            Propieta_1_options_str  += '<option value="Juan Castellanos">Juan Castellanos</option>';
+            Propieta_1_options_str  += '<option value="Juan Castelo">Juan Castelo</option>';
+            Propieta_1_options_str  += '<option value="Juan Cerón">Juan Cerón</option>';
+            Propieta_1_options_str  += '<option value="Juan Climaco García">Juan Climaco García</option>';
+            Propieta_1_options_str  += '<option value="Juan Corrales">Juan Corrales</option>';
+            Propieta_1_options_str  += '<option value="Juan Cuaumea">Juan Cuaumea</option>';
+            Propieta_1_options_str  += '<option value="Juan E.">Juan E.</option>';
+            Propieta_1_options_str  += '<option value="Juan F. Valenzuela">Juan F. Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Juan Gamuza">Juan Gamuza</option>';
+            Propieta_1_options_str  += '<option value="Juan Gracia">Juan Gracia</option>';
+            Propieta_1_options_str  += '<option value="Juan Grijalva">Juan Grijalva</option>';
+            Propieta_1_options_str  += '<option value="Juan Huatemea">Juan Huatemea</option>';
+            Propieta_1_options_str  += '<option value="Juan Huauacomea">Juan Huauacomea</option>';
+            Propieta_1_options_str  += '<option value="Juan Huiquila">Juan Huiquila</option>';
+            Propieta_1_options_str  += '<option value="Juan J. Acosta">Juan J. Acosta</option>';
+            Propieta_1_options_str  += '<option value="Juan J. Castro">Juan J. Castro</option>';
+            Propieta_1_options_str  += '<option value="Juan Jesús Villa">Juan Jesús Villa</option>';
+            Propieta_1_options_str  += '<option value="Juan Jisacomea">Juan Jisacomea</option>';
+            Propieta_1_options_str  += '<option value="Juan José Buitimea">Juan José Buitimea</option>';
+            Propieta_1_options_str  += '<option value="Juan José Carrillo">Juan José Carrillo</option>';
+            Propieta_1_options_str  += '<option value="Juan José Coamea">Juan José Coamea</option>';
+            Propieta_1_options_str  += '<option value="Juan José Suárez">Juan José Suárez</option>';
+            Propieta_1_options_str  += '<option value="Juan José Toledo">Juan José Toledo</option>';
+            Propieta_1_options_str  += '<option value="Juan Lorenzo Duarte">Juan Lorenzo Duarte</option>';
+            Propieta_1_options_str  += '<option value="Juan López">Juan López</option>';
+            Propieta_1_options_str  += '<option value="Juan MacDonald">Juan MacDonald</option>';
+            Propieta_1_options_str  += '<option value="Juan Manuel Miranda">Juan Manuel Miranda</option>';
+            Propieta_1_options_str  += '<option value="Juan Manuel Valenzuela">Juan Manuel Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Juan María">Juan María</option>';
+            Propieta_1_options_str  += '<option value="Juan María Baisea">Juan María Baisea</option>';
+            Propieta_1_options_str  += '<option value="Juan María Bajea">Juan María Bajea</option>';
+            Propieta_1_options_str  += '<option value="Juan María Buitimea">Juan María Buitimea</option>';
+            Propieta_1_options_str  += '<option value="Juan María Cantúa">Juan María Cantúa</option>';
+            Propieta_1_options_str  += '<option value="Juan María Capis">Juan María Capis</option>';
+            Propieta_1_options_str  += '<option value="Juan María Guatecuevisca">Juan María Guatecuevisca</option>';
+            Propieta_1_options_str  += '<option value="Juan María Huetamea">Juan María Huetamea</option>';
+            Propieta_1_options_str  += '<option value="Juan María Jicuamea">Juan María Jicuamea</option>';
+            Propieta_1_options_str  += '<option value="Juan María Lina">Juan María Lina</option>';
+            Propieta_1_options_str  += '<option value="Juan María Martinez">Juan María Martinez</option>';
+            Propieta_1_options_str  += '<option value="Juan María Pérez">Juan María Pérez</option>';
+            Propieta_1_options_str  += '<option value="Juan María Seamu">Juan María Seamu</option>';
+            Propieta_1_options_str  += '<option value="Juan María Sibamea">Juan María Sibamea</option>';
+            Propieta_1_options_str  += '<option value="Juan María Subamea">Juan María Subamea</option>';
+            Propieta_1_options_str  += '<option value="Juan María Suárez">Juan María Suárez</option>';
+            Propieta_1_options_str  += '<option value="Juan María Tamapomea">Juan María Tamapomea</option>';
+            Propieta_1_options_str  += '<option value="Juan María Valenzuela">Juan María Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Juan María Yoquihue">Juan María Yoquihue</option>';
+            Propieta_1_options_str  += '<option value="Juan María Zúñiga">Juan María Zúñiga</option>';
+            Propieta_1_options_str  += '<option value="Juan Matus">Juan Matus</option>';
+            Propieta_1_options_str  += '<option value="Juan Meneses">Juan Meneses</option>';
+            Propieta_1_options_str  += '<option value="Juan Miguel">Juan Miguel</option>';
+            Propieta_1_options_str  += '<option value="Juan Miguel Yoquihue">Juan Miguel Yoquihue</option>';
+            Propieta_1_options_str  += '<option value="Juan Molina">Juan Molina</option>';
+            Propieta_1_options_str  += '<option value="Juan N. López">Juan N. López</option>';
+            Propieta_1_options_str  += '<option value="Juan N. Valenzuela">Juan N. Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Juan Pájaro">Juan Pájaro</option>';
+            Propieta_1_options_str  += '<option value="Juan Refugio Armenta">Juan Refugio Armenta</option>';
+            Propieta_1_options_str  += '<option value="Juan Reyes">Juan Reyes</option>';
+            Propieta_1_options_str  += '<option value="Juan Rochin">Juan Rochin</option>';
+            Propieta_1_options_str  += '<option value="Juan Ruiz">Juan Ruiz</option>';
+            Propieta_1_options_str  += '<option value="Juan S. García">Juan S. García</option>';
+            Propieta_1_options_str  += '<option value="Juan S. Gracia">Juan S. Gracia</option>';
+            Propieta_1_options_str  += '<option value="Juan Samayoa">Juan Samayoa</option>';
+            Propieta_1_options_str  += '<option value="Juan Sapomea">Juan Sapomea</option>';
+            Propieta_1_options_str  += '<option value="Juan Seamu">Juan Seamu</option>';
+            Propieta_1_options_str  += '<option value="Juan Seboa">Juan Seboa</option>';
+            Propieta_1_options_str  += '<option value="Juan Seseamea">Juan Seseamea</option>';
+            Propieta_1_options_str  += '<option value="Juan Sol">Juan Sol</option>';
+            Propieta_1_options_str  += '<option value="Juan Suárez">Juan Suárez</option>';
+            Propieta_1_options_str  += '<option value="Juan Tamapomea">Juan Tamapomea</option>';
+            Propieta_1_options_str  += '<option value="Juan Torres">Juan Torres</option>';
+            Propieta_1_options_str  += '<option value="Juan Valencia">Juan Valencia</option>';
+            Propieta_1_options_str  += '<option value="Juan Yoquihue">Juan Yoquihue</option>';
+            Propieta_1_options_str  += '<option value="Juan Zamora">Juan Zamora</option>';
+            Propieta_1_options_str  += '<option value="Juan Álvarez">Juan Álvarez</option>';
+            Propieta_1_options_str  += '<option value="Juana Antonia Coamea">Juana Antonia Coamea</option>';
+            Propieta_1_options_str  += '<option value="Juana Bacaje">Juana Bacaje</option>';
+            Propieta_1_options_str  += '<option value="Juana Buitimea">Juana Buitimea</option>';
+            Propieta_1_options_str  += '<option value="Juana Francisca Martínez">Juana Francisca Martínez</option>';
+            Propieta_1_options_str  += '<option value="Juana García">Juana García</option>';
+            Propieta_1_options_str  += '<option value="Juana Giüruptemea">Juana Giüruptemea</option>';
+            Propieta_1_options_str  += '<option value="Juana Guapo">Juana Guapo</option>';
+            Propieta_1_options_str  += '<option value="Juana Ignacia y">Juana Ignacia y</option>';
+            Propieta_1_options_str  += '<option value="Juana Jiuley">Juana Jiuley</option>';
+            Propieta_1_options_str  += '<option value="Juana Jécari">Juana Jécari</option>';
+            Propieta_1_options_str  += '<option value="Juana López">Juana López</option>';
+            Propieta_1_options_str  += '<option value="Juana María Caumea">Juana María Caumea</option>';
+            Propieta_1_options_str  += '<option value="Juana María Huiquichi">Juana María Huiquichi</option>';
+            Propieta_1_options_str  += '<option value="Juana María Taramasay">Juana María Taramasay</option>';
+            Propieta_1_options_str  += '<option value="Juana María Tuchas">Juana María Tuchas</option>';
+            Propieta_1_options_str  += '<option value="Juana María Yoquihue">Juana María Yoquihue</option>';
+            Propieta_1_options_str  += '<option value="Juana Matus">Juana Matus</option>';
+            Propieta_1_options_str  += '<option value="Juana Miranda">Juana Miranda</option>';
+            Propieta_1_options_str  += '<option value="Juana Molina">Juana Molina</option>';
+            Propieta_1_options_str  += '<option value="Juana Rivera">Juana Rivera</option>';
+            Propieta_1_options_str  += '<option value="Juana Seamu">Juana Seamu</option>';
+            Propieta_1_options_str  += '<option value="Juana Sereno">Juana Sereno</option>';
+            Propieta_1_options_str  += '<option value="Juana Soloman">Juana Soloman</option>';
+            Propieta_1_options_str  += '<option value="Juana Tuchas">Juana Tuchas</option>';
+            Propieta_1_options_str  += '<option value="Juana Valenzuela">Juana Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Juana Verduzco">Juana Verduzco</option>';
+            Propieta_1_options_str  += '<option value="Juana Visaiva">Juana Visaiva</option>';
+            Propieta_1_options_str  += '<option value="Juana Viseiva">Juana Viseiva</option>';
+            Propieta_1_options_str  += '<option value="Juana Yoquihue">Juana Yoquihue</option>';
+            Propieta_1_options_str  += '<option value="Julia Ibarra">Julia Ibarra</option>';
+            Propieta_1_options_str  += '<option value="Julian Buitimea">Julian Buitimea</option>';
+            Propieta_1_options_str  += '<option value="Julian Cajeme">Julian Cajeme</option>';
+            Propieta_1_options_str  += '<option value="Julian Chapomea">Julian Chapomea</option>';
+            Propieta_1_options_str  += '<option value="Julian Coamea">Julian Coamea</option>';
+            Propieta_1_options_str  += '<option value="Julian Espinosa">Julian Espinosa</option>';
+            Propieta_1_options_str  += '<option value="Julian López">Julian López</option>';
+            Propieta_1_options_str  += '<option value="Julian Valenzuela">Julian Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Juliana Buitimea">Juliana Buitimea</option>';
+            Propieta_1_options_str  += '<option value="Julio Carranza">Julio Carranza</option>';
+            Propieta_1_options_str  += '<option value="Julio Castro">Julio Castro</option>';
+            Propieta_1_options_str  += '<option value="Julio Cuen">Julio Cuen</option>';
+            Propieta_1_options_str  += '<option value="Julio Molina">Julio Molina</option>';
+            Propieta_1_options_str  += '<option value="Julián Cuevas">Julián Cuevas</option>';
+            Propieta_1_options_str  += '<option value="Julián García">Julián García</option>';
+            Propieta_1_options_str  += '<option value="Just. Esquer">Just. Esquer</option>';
+            Propieta_1_options_str  += '<option value="LA ANGOSTURA">LA ANGOSTURA</option>';
+            Propieta_1_options_str  += '<option value="Lamberto Esquer">Lamberto Esquer</option>';
+            Propieta_1_options_str  += '<option value="Lamberto Victoria">Lamberto Victoria</option>';
+            Propieta_1_options_str  += '<option value="Lamberto Victorica">Lamberto Victorica</option>';
+            Propieta_1_options_str  += '<option value="Laura Quiroz">Laura Quiroz</option>';
+            Propieta_1_options_str  += '<option value="Laura Rochin">Laura Rochin</option>';
+            Propieta_1_options_str  += '<option value="Laura S. de la Mora">Laura S. de la Mora</option>';
+            Propieta_1_options_str  += '<option value="Lauro Servin">Lauro Servin</option>';
+            Propieta_1_options_str  += '<option value="Leandro Castro">Leandro Castro</option>';
+            Propieta_1_options_str  += '<option value="Leocadio Frías">Leocadio Frías</option>';
+            Propieta_1_options_str  += '<option value="Leonardo Car.">Leonardo Car.</option>';
+            Propieta_1_options_str  += '<option value="Leonardo G. Montaño">Leonardo G. Montaño</option>';
+            Propieta_1_options_str  += '<option value="Leonardo Montaño">Leonardo Montaño</option>';
+            Propieta_1_options_str  += '<option value="Leoncio Moreno">Leoncio Moreno</option>';
+            Propieta_1_options_str  += '<option value="Leonor E.">Leonor E.</option>';
+            Propieta_1_options_str  += '<option value="Leonor Rosas">Leonor Rosas</option>';
+            Propieta_1_options_str  += '<option value="Leopoldo Díaz">Leopoldo Díaz</option>';
+            Propieta_1_options_str  += '<option value="Leovigildo Rosas">Leovigildo Rosas</option>';
+            Propieta_1_options_str  += '<option value="León Sepúlveda">León Sepúlveda</option>';
+            Propieta_1_options_str  += '<option value="Librado Aviña">Librado Aviña</option>';
+            Propieta_1_options_str  += '<option value="Librado Duarte">Librado Duarte</option>';
+            Propieta_1_options_str  += '<option value="Librado Guerra">Librado Guerra</option>';
+            Propieta_1_options_str  += '<option value="Lina Buitimea">Lina Buitimea</option>';
+            Propieta_1_options_str  += '<option value="Lograda Anguamea">Lograda Anguamea</option>';
+            Propieta_1_options_str  += '<option value="Longino Cota">Longino Cota</option>';
+            Propieta_1_options_str  += '<option value="Lorenza Cajeme">Lorenza Cajeme</option>';
+            Propieta_1_options_str  += '<option value="Lorenza Núñez">Lorenza Núñez</option>';
+            Propieta_1_options_str  += '<option value="Lorenza Valdés">Lorenza Valdés</option>';
+            Propieta_1_options_str  += '<option value="Lorenzo Abeita">Lorenzo Abeita</option>';
+            Propieta_1_options_str  += '<option value="Lorenzo Esquer">Lorenzo Esquer</option>';
+            Propieta_1_options_str  += '<option value="Lorenzo Flor">Lorenzo Flor</option>';
+            Propieta_1_options_str  += '<option value="Lorenzo Miranda">Lorenzo Miranda</option>';
+            Propieta_1_options_str  += '<option value="Lorenzo Tamisicomea">Lorenzo Tamisicomea</option>';
+            Propieta_1_options_str  += '<option value="Lorenzo Valenzuela">Lorenzo Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Loreto Arenas">Loreto Arenas</option>';
+            Propieta_1_options_str  += '<option value="Loreto Bariceli">Loreto Bariceli</option>';
+            Propieta_1_options_str  += '<option value="Loreto Buitimea">Loreto Buitimea</option>';
+            Propieta_1_options_str  += '<option value="Loreto Calderón">Loreto Calderón</option>';
+            Propieta_1_options_str  += '<option value="Loreto Careaga">Loreto Careaga</option>';
+            Propieta_1_options_str  += '<option value="Loreto Duarte">Loreto Duarte</option>';
+            Propieta_1_options_str  += '<option value="Loreto Díaz">Loreto Díaz</option>';
+            Propieta_1_options_str  += '<option value="Loreto Espinosa">Loreto Espinosa</option>';
+            Propieta_1_options_str  += '<option value="Loreto Esquer">Loreto Esquer</option>';
+            Propieta_1_options_str  += '<option value="Loreto García">Loreto García</option>';
+            Propieta_1_options_str  += '<option value="Loreto Ibarra">Loreto Ibarra</option>';
+            Propieta_1_options_str  += '<option value="Loreto Jusacamea">Loreto Jusacamea</option>';
+            Propieta_1_options_str  += '<option value="Loreto Lepahay">Loreto Lepahay</option>';
+            Propieta_1_options_str  += '<option value="Loreto Matus">Loreto Matus</option>';
+            Propieta_1_options_str  += '<option value="Loreto Miranda">Loreto Miranda</option>';
+            Propieta_1_options_str  += '<option value="Loreto Murillo">Loreto Murillo</option>';
+            Propieta_1_options_str  += '<option value="Loreto Toledo">Loreto Toledo</option>';
+            Propieta_1_options_str  += '<option value="Loreto Torres">Loreto Torres</option>';
+            Propieta_1_options_str  += '<option value="Loreto Valencia">Loreto Valencia</option>';
+            Propieta_1_options_str  += '<option value="Loreto Valenzuela">Loreto Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Loreto Villa">Loreto Villa</option>';
+            Propieta_1_options_str  += '<option value="Loreto Yoquihue">Loreto Yoquihue</option>';
+            Propieta_1_options_str  += '<option value="Loreto Zayas">Loreto Zayas</option>';
+            Propieta_1_options_str  += '<option value="Lucas Hernández">Lucas Hernández</option>';
+            Propieta_1_options_str  += '<option value="Lucas y Mateo Bacasegua">Lucas y Mateo Bacasegua</option>';
+            Propieta_1_options_str  += '<option value="Luciano Ania">Luciano Ania</option>';
+            Propieta_1_options_str  += '<option value="Luciano Buitimea">Luciano Buitimea</option>';
+            Propieta_1_options_str  += '<option value="Luciano Espinosa">Luciano Espinosa</option>';
+            Propieta_1_options_str  += '<option value="Luciano Ibarra">Luciano Ibarra</option>';
+            Propieta_1_options_str  += '<option value="Luciano Jihuata">Luciano Jihuata</option>';
+            Propieta_1_options_str  += '<option value="Luciano Molina">Luciano Molina</option>';
+            Propieta_1_options_str  += '<option value="Luciano Valenzuela">Luciano Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Luciano Zayas">Luciano Zayas</option>';
+            Propieta_1_options_str  += '<option value="Luciano Zeaboica">Luciano Zeaboica</option>';
+            Propieta_1_options_str  += '<option value="Lucrecia Hernández">Lucrecia Hernández</option>';
+            Propieta_1_options_str  += '<option value="Lugarda Borquez">Lugarda Borquez</option>';
+            Propieta_1_options_str  += '<option value="Lugo Hermanos">Lugo Hermanos</option>';
+            Propieta_1_options_str  += '<option value="Lugo de Yoquihue">Lugo de Yoquihue</option>';
+            Propieta_1_options_str  += '<option value="Luis">Luis</option>';
+            Propieta_1_options_str  += '<option value="Luis Alcantar">Luis Alcantar</option>';
+            Propieta_1_options_str  += '<option value="Luis Alconl">Luis Alconl</option>';
+            Propieta_1_options_str  += '<option value="Luis Amaro">Luis Amaro</option>';
+            Propieta_1_options_str  += '<option value="Luis Briano">Luis Briano</option>';
+            Propieta_1_options_str  += '<option value="Luis Buitimea">Luis Buitimea</option>';
+            Propieta_1_options_str  += '<option value="Luis Cabes">Luis Cabes</option>';
+            Propieta_1_options_str  += '<option value="Luis Corrales">Luis Corrales</option>';
+            Propieta_1_options_str  += '<option value="Luis Espinosa">Luis Espinosa</option>';
+            Propieta_1_options_str  += '<option value="Luis Flores">Luis Flores</option>';
+            Propieta_1_options_str  += '<option value="Luis G. Amaro">Luis G. Amaro</option>';
+            Propieta_1_options_str  += '<option value="Luis G. Padilla">Luis G. Padilla</option>';
+            Propieta_1_options_str  += '<option value="Luis G. Parada">Luis G. Parada</option>';
+            Propieta_1_options_str  += '<option value="Luis Guasamasu">Luis Guasamasu</option>';
+            Propieta_1_options_str  += '<option value="Luis Larini">Luis Larini</option>';
+            Propieta_1_options_str  += '<option value="Luis Martínez">Luis Martínez</option>';
+            Propieta_1_options_str  += '<option value="Luis Matus">Luis Matus</option>';
+            Propieta_1_options_str  += '<option value="Luis Miranda">Luis Miranda</option>';
+            Propieta_1_options_str  += '<option value="Luis Pellecier">Luis Pellecier</option>';
+            Propieta_1_options_str  += '<option value="Luis Quiroz">Luis Quiroz</option>';
+            Propieta_1_options_str  += '<option value="Luis R. González">Luis R. González</option>';
+            Propieta_1_options_str  += '<option value="Luis Samayoa y de Olea">Luis Samayoa y de Olea</option>';
+            Propieta_1_options_str  += '<option value="Luis Seboytomea">Luis Seboytomea</option>';
+            Propieta_1_options_str  += '<option value="Luis Suárez">Luis Suárez</option>';
+            Propieta_1_options_str  += '<option value="Luis Tellechea">Luis Tellechea</option>';
+            Propieta_1_options_str  += '<option value="Luis Tescasehua">Luis Tescasehua</option>';
+            Propieta_1_options_str  += '<option value="Luis Toypicio">Luis Toypicio</option>';
+            Propieta_1_options_str  += '<option value="Luis Uribe">Luis Uribe</option>';
+            Propieta_1_options_str  += '<option value="Luis Velazquez">Luis Velazquez</option>';
+            Propieta_1_options_str  += '<option value="Luis Yepis">Luis Yepis</option>';
+            Propieta_1_options_str  += '<option value="Luis Zeaboica">Luis Zeaboica</option>';
+            Propieta_1_options_str  += '<option value="Luisa Cota">Luisa Cota</option>';
+            Propieta_1_options_str  += '<option value="Luisa Peña">Luisa Peña</option>';
+            Propieta_1_options_str  += '<option value="Luisa Salcido">Luisa Salcido</option>';
+            Propieta_1_options_str  += '<option value="Luisa Valenzuela">Luisa Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Luisa Yoquihue">Luisa Yoquihue</option>';
+            Propieta_1_options_str  += '<option value="Lupita Villa">Lupita Villa</option>';
+            Propieta_1_options_str  += '<option value="Luz Calacia">Luz Calacia</option>';
+            Propieta_1_options_str  += '<option value="Luz Félix">Luz Félix</option>';
+            Propieta_1_options_str  += '<option value="Luz Gutiérrez">Luz Gutiérrez</option>';
+            Propieta_1_options_str  += '<option value="Luz Pablos">Luz Pablos</option>';
+            Propieta_1_options_str  += '<option value="Luz Santela">Luz Santela</option>';
+            Propieta_1_options_str  += '<option value="Luz Yoquihue">Luz Yoquihue</option>';
+            Propieta_1_options_str  += '<option value="M. J. Castelo">M. J. Castelo</option>';
+            Propieta_1_options_str  += '<option value="MManuel Valenzuela">MManuel Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Macedonio Osuna">Macedonio Osuna</option>';
+            Propieta_1_options_str  += '<option value="Macedonio Rivera">Macedonio Rivera</option>';
+            Propieta_1_options_str  += '<option value="Maclovia H. Hernández">Maclovia H. Hernández</option>';
+            Propieta_1_options_str  += '<option value="Maclovio H. Hernández">Maclovio H. Hernández</option>';
+            Propieta_1_options_str  += '<option value="Magdalena Güereña">Magdalena Güereña</option>';
+            Propieta_1_options_str  += '<option value="Manuel Anguamea">Manuel Anguamea</option>';
+            Propieta_1_options_str  += '<option value="Manuel Armenta">Manuel Armenta</option>';
+            Propieta_1_options_str  += '<option value="Manuel B.">Manuel B.</option>';
+            Propieta_1_options_str  += '<option value="Manuel Barroso">Manuel Barroso</option>';
+            Propieta_1_options_str  += '<option value="Manuel Baumea">Manuel Baumea</option>';
+            Propieta_1_options_str  += '<option value="Manuel Borquez">Manuel Borquez</option>';
+            Propieta_1_options_str  += '<option value="Manuel Buitimea">Manuel Buitimea</option>';
+            Propieta_1_options_str  += '<option value="Manuel Cantemea">Manuel Cantemea</option>';
+            Propieta_1_options_str  += '<option value="Manuel Cantúa">Manuel Cantúa</option>';
+            Propieta_1_options_str  += '<option value="Manuel Cerecer">Manuel Cerecer</option>';
+            Propieta_1_options_str  += '<option value="Manuel Escalante">Manuel Escalante</option>';
+            Propieta_1_options_str  += '<option value="Manuel Félix">Manuel Félix</option>';
+            Propieta_1_options_str  += '<option value="Manuel García">Manuel García</option>';
+            Propieta_1_options_str  += '<option value="Manuel Grijalva">Manuel Grijalva</option>';
+            Propieta_1_options_str  += '<option value="Manuel Hernández">Manuel Hernández</option>';
+            Propieta_1_options_str  += '<option value="Manuel Ignacio Ugarte">Manuel Ignacio Ugarte</option>';
+            Propieta_1_options_str  += '<option value="Manuel M. Escamilla">Manuel M. Escamilla</option>';
+            Propieta_1_options_str  += '<option value="Manuel Madero">Manuel Madero</option>';
+            Propieta_1_options_str  += '<option value="Manuel Modesto">Manuel Modesto</option>';
+            Propieta_1_options_str  += '<option value="Manuel Montaño">Manuel Montaño</option>';
+            Propieta_1_options_str  += '<option value="Manuel Muñoz">Manuel Muñoz</option>';
+            Propieta_1_options_str  += '<option value="Manuel Núñez">Manuel Núñez</option>';
+            Propieta_1_options_str  += '<option value="Manuel P. Franck">Manuel P. Franck</option>';
+            Propieta_1_options_str  += '<option value="Manuel P. Frank">Manuel P. Frank</option>';
+            Propieta_1_options_str  += '<option value="Manuel Preciado">Manuel Preciado</option>';
+            Propieta_1_options_str  += '<option value="Manuel Rodríguez">Manuel Rodríguez</option>';
+            Propieta_1_options_str  += '<option value="Manuel Solarte">Manuel Solarte</option>';
+            Propieta_1_options_str  += '<option value="Manuel Sotelo">Manuel Sotelo</option>';
+            Propieta_1_options_str  += '<option value="Manuel Tadeo">Manuel Tadeo</option>';
+            Propieta_1_options_str  += '<option value="Manuel Tellechea">Manuel Tellechea</option>';
+            Propieta_1_options_str  += '<option value="Manuel Valenzuela">Manuel Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Manuel Vejasuare">Manuel Vejasuare</option>';
+            Propieta_1_options_str  += '<option value="Manuel Velazquez">Manuel Velazquez</option>';
+            Propieta_1_options_str  += '<option value="Manuel Verduzco">Manuel Verduzco</option>';
+            Propieta_1_options_str  += '<option value="Manuel Villa">Manuel Villa</option>';
+            Propieta_1_options_str  += '<option value="Manuel de Jesús Olea">Manuel de Jesús Olea</option>';
+            Propieta_1_options_str  += '<option value="Manuel Ávila">Manuel Ávila</option>';
+            Propieta_1_options_str  += '<option value="Manuela Moreno">Manuela Moreno</option>';
+            Propieta_1_options_str  += '<option value="Manuela Seamu">Manuela Seamu</option>';
+            Propieta_1_options_str  += '<option value="Manuela Valenzuela">Manuela Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Marcela Calderón">Marcela Calderón</option>';
+            Propieta_1_options_str  += '<option value="Marcela Esquer">Marcela Esquer</option>';
+            Propieta_1_options_str  += '<option value="Marcelina Parada">Marcelina Parada</option>';
+            Propieta_1_options_str  += '<option value="Marcelino Apodaca">Marcelino Apodaca</option>';
+            Propieta_1_options_str  += '<option value="Marcelino Castellanos">Marcelino Castellanos</option>';
+            Propieta_1_options_str  += '<option value="Marcelino Cienfuegos">Marcelino Cienfuegos</option>';
+            Propieta_1_options_str  += '<option value="Marcelino Miranda">Marcelino Miranda</option>';
+            Propieta_1_options_str  += '<option value="Marcial Ibarra">Marcial Ibarra</option>';
+            Propieta_1_options_str  += '<option value="Marciano Félix">Marciano Félix</option>';
+            Propieta_1_options_str  += '<option value="Margarita G. de Martínez">Margarita G. de Martínez</option>';
+            Propieta_1_options_str  += '<option value="Margarita Grijalva">Margarita Grijalva</option>';
+            Propieta_1_options_str  += '<option value="Margarita Macholay">Margarita Macholay</option>';
+            Propieta_1_options_str  += '<option value="Margarita Salazar">Margarita Salazar</option>';
+            Propieta_1_options_str  += '<option value="Margarita Soloman">Margarita Soloman</option>';
+            Propieta_1_options_str  += '<option value="Margarita Torres">Margarita Torres</option>';
+            Propieta_1_options_str  += '<option value="Margarita Valdez">Margarita Valdez</option>';
+            Propieta_1_options_str  += '<option value="Margarita Valenzuela">Margarita Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Margarita Verdugo">Margarita Verdugo</option>';
+            Propieta_1_options_str  += '<option value="Mariana Careaga">Mariana Careaga</option>';
+            Propieta_1_options_str  += '<option value="Mariano Buitimea">Mariano Buitimea</option>';
+            Propieta_1_options_str  += '<option value="Mariano Félix">Mariano Félix</option>';
+            Propieta_1_options_str  += '<option value="Mariano Paredes">Mariano Paredes</option>';
+            Propieta_1_options_str  += '<option value="Mariano Rivera">Mariano Rivera</option>';
+            Propieta_1_options_str  += '<option value="Mariano Valenzuela">Mariano Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Mario Borquez">Mario Borquez</option>';
+            Propieta_1_options_str  += '<option value="Mario Molina">Mario Molina</option>';
+            Propieta_1_options_str  += '<option value="Mario Valenzuela">Mario Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Martín Caumea">Martín Caumea</option>';
+            Propieta_1_options_str  += '<option value="Martín Espinosa">Martín Espinosa</option>';
+            Propieta_1_options_str  += '<option value="Martín Félix">Martín Félix</option>';
+            Propieta_1_options_str  += '<option value="Martín Giraud">Martín Giraud</option>';
+            Propieta_1_options_str  += '<option value="Martín Larráuri">Martín Larráuri</option>';
+            Propieta_1_options_str  += '<option value="Martín Paredes">Martín Paredes</option>';
+            Propieta_1_options_str  += '<option value="María Albina Duarte">María Albina Duarte</option>';
+            Propieta_1_options_str  += '<option value="María Antonia Baisea">María Antonia Baisea</option>';
+            Propieta_1_options_str  += '<option value="María Antonia Buitimea">María Antonia Buitimea</option>';
+            Propieta_1_options_str  += '<option value="María Antonia Leyva">María Antonia Leyva</option>';
+            Propieta_1_options_str  += '<option value="María Antonia Yepiz">María Antonia Yepiz</option>';
+            Propieta_1_options_str  += '<option value="María Arenas">María Arenas</option>';
+            Propieta_1_options_str  += '<option value="María Buitimea">María Buitimea</option>';
+            Propieta_1_options_str  += '<option value="María Calacia">María Calacia</option>';
+            Propieta_1_options_str  += '<option value="María Cantúa">María Cantúa</option>';
+            Propieta_1_options_str  += '<option value="María Conant">María Conant</option>';
+            Propieta_1_options_str  += '<option value="María Contreras">María Contreras</option>';
+            Propieta_1_options_str  += '<option value="María Cruz Seamu">María Cruz Seamu</option>';
+            Propieta_1_options_str  += '<option value="María Cuen">María Cuen</option>';
+            Propieta_1_options_str  += '<option value="María Dibene">María Dibene</option>';
+            Propieta_1_options_str  += '<option value="María Duarte">María Duarte</option>';
+            Propieta_1_options_str  += '<option value="María Esquer">María Esquer</option>';
+            Propieta_1_options_str  += '<option value="María Francisca Casemea">María Francisca Casemea</option>';
+            Propieta_1_options_str  += '<option value="María Félix">María Félix</option>';
+            Propieta_1_options_str  += '<option value="María G. de Bauman">María G. de Bauman</option>';
+            Propieta_1_options_str  += '<option value="María Gertrudis Ayala">María Gertrudis Ayala</option>';
+            Propieta_1_options_str  += '<option value="María Grijalva">María Grijalva</option>';
+            Propieta_1_options_str  += '<option value="María Huayaciare">María Huayaciare</option>';
+            Propieta_1_options_str  += '<option value="María Huiquichi">María Huiquichi</option>';
+            Propieta_1_options_str  += '<option value="María Ibarra">María Ibarra</option>';
+            Propieta_1_options_str  += '<option value="María Ignacia Preciado">María Ignacia Preciado</option>';
+            Propieta_1_options_str  += '<option value="María Ignacia Seamu">María Ignacia Seamu</option>';
+            Propieta_1_options_str  += '<option value="María Ignacia Yoquihue">María Ignacia Yoquihue</option>';
+            Propieta_1_options_str  += '<option value="María Japacamea">María Japacamea</option>';
+            Propieta_1_options_str  += '<option value="María Jesús Jamescomea">María Jesús Jamescomea</option>';
+            Propieta_1_options_str  += '<option value="María Jesús Seamu">María Jesús Seamu</option>';
+            Propieta_1_options_str  += '<option value="María Josefa Baisea">María Josefa Baisea</option>';
+            Propieta_1_options_str  += '<option value="María Josefa Gutiérrez">María Josefa Gutiérrez</option>';
+            Propieta_1_options_str  += '<option value="María Josefa Juolay">María Josefa Juolay</option>';
+            Propieta_1_options_str  += '<option value="María Josefa Visaiva">María Josefa Visaiva</option>';
+            Propieta_1_options_str  += '<option value="María Josefa Yoquihue">María Josefa Yoquihue</option>';
+            Propieta_1_options_str  += '<option value="María Lejamea">María Lejamea</option>';
+            Propieta_1_options_str  += '<option value="María Leyva">María Leyva</option>';
+            Propieta_1_options_str  += '<option value="María Loreto">María Loreto</option>';
+            Propieta_1_options_str  += '<option value="María Luisa Buitimea">María Luisa Buitimea</option>';
+            Propieta_1_options_str  += '<option value="María Luisa Giulabe">María Luisa Giulabe</option>';
+            Propieta_1_options_str  += '<option value="María Luz Borquez">María Luz Borquez</option>';
+            Propieta_1_options_str  += '<option value="María Luz Buitimea">María Luz Buitimea</option>';
+            Propieta_1_options_str  += '<option value="María Luz Calacia">María Luz Calacia</option>';
+            Propieta_1_options_str  += '<option value="María Luz Valenzuela">María Luz Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="María Madriles">María Madriles</option>';
+            Propieta_1_options_str  += '<option value="María Maldonado">María Maldonado</option>';
+            Propieta_1_options_str  += '<option value="María Mapomea">María Mapomea</option>';
+            Propieta_1_options_str  += '<option value="María Molina">María Molina</option>';
+            Propieta_1_options_str  += '<option value="María Nieves Paredes">María Nieves Paredes</option>';
+            Propieta_1_options_str  += '<option value="María Pablos">María Pablos</option>';
+            Propieta_1_options_str  += '<option value="María Paredes">María Paredes</option>';
+            Propieta_1_options_str  += '<option value="María Pilar Soto">María Pilar Soto</option>';
+            Propieta_1_options_str  += '<option value="María Preciado">María Preciado</option>';
+            Propieta_1_options_str  += '<option value="María Ramírez">María Ramírez</option>';
+            Propieta_1_options_str  += '<option value="María Refugio Zayas">María Refugio Zayas</option>';
+            Propieta_1_options_str  += '<option value="María Rochin">María Rochin</option>';
+            Propieta_1_options_str  += '<option value="María Romero">María Romero</option>';
+            Propieta_1_options_str  += '<option value="María Ruiz">María Ruiz</option>';
+            Propieta_1_options_str  += '<option value="María Santos">María Santos</option>';
+            Propieta_1_options_str  += '<option value="María Seamu">María Seamu</option>';
+            Propieta_1_options_str  += '<option value="María Segura">María Segura</option>';
+            Propieta_1_options_str  += '<option value="María Simona Bacaumea">María Simona Bacaumea</option>';
+            Propieta_1_options_str  += '<option value="María Simona Barroso">María Simona Barroso</option>';
+            Propieta_1_options_str  += '<option value="María Torres">María Torres</option>';
+            Propieta_1_options_str  += '<option value="María Valencia">María Valencia</option>';
+            Propieta_1_options_str  += '<option value="María Valenzuela">María Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="María Villa">María Villa</option>';
+            Propieta_1_options_str  += '<option value="María Vinamea">María Vinamea</option>';
+            Propieta_1_options_str  += '<option value="María Yoquihue">María Yoquihue</option>';
+            Propieta_1_options_str  += '<option value="María de Jesús Cantúa">María de Jesús Cantúa</option>';
+            Propieta_1_options_str  += '<option value="María de Jesús Espinosa">María de Jesús Espinosa</option>';
+            Propieta_1_options_str  += '<option value="María de Jesús Félix">María de Jesús Félix</option>';
+            Propieta_1_options_str  += '<option value="María de Jesús Guaymea">María de Jesús Guaymea</option>';
+            Propieta_1_options_str  += '<option value="María de Jesús Miranda">María de Jesús Miranda</option>';
+            Propieta_1_options_str  += '<option value="María de Jesús Munguia">María de Jesús Munguia</option>';
+            Propieta_1_options_str  += '<option value="María de Jesús Munguía">María de Jesús Munguía</option>';
+            Propieta_1_options_str  += '<option value="María de Jesús Valdez">María de Jesús Valdez</option>';
+            Propieta_1_options_str  += '<option value="María de Servin">María de Servin</option>';
+            Propieta_1_options_str  += '<option value="María de los Ángeles">María de los Ángeles</option>';
+            Propieta_1_options_str  += '<option value="Mateo Aguilar">Mateo Aguilar</option>';
+            Propieta_1_options_str  += '<option value="Mateo Coamea">Mateo Coamea</option>';
+            Propieta_1_options_str  += '<option value="Matiana Caumea">Matiana Caumea</option>';
+            Propieta_1_options_str  += '<option value="Matilda Yoquihue">Matilda Yoquihue</option>';
+            Propieta_1_options_str  += '<option value="Matilde Espinosa">Matilde Espinosa</option>';
+            Propieta_1_options_str  += '<option value="Matilde Valenzuela">Matilde Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Matilde de Moreno">Matilde de Moreno</option>';
+            Propieta_1_options_str  += '<option value="Matías Bañola">Matías Bañola</option>';
+            Propieta_1_options_str  += '<option value="Matías Enríquez">Matías Enríquez</option>';
+            Propieta_1_options_str  += '<option value="Matías Rodríguez">Matías Rodríguez</option>';
+            Propieta_1_options_str  += '<option value="Mauricia Valenzuela">Mauricia Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Mauricio Olea">Mauricio Olea</option>';
+            Propieta_1_options_str  += '<option value="Mauricio Valenzuela">Mauricio Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Maximiliano Paredes">Maximiliano Paredes</option>';
+            Propieta_1_options_str  += '<option value="Maximiliano Sepúlveda">Maximiliano Sepúlveda</option>';
+            Propieta_1_options_str  += '<option value="Mendivil Viuda de">Mendivil Viuda de</option>';
+            Propieta_1_options_str  += '<option value="Merced Félix">Merced Félix</option>';
+            Propieta_1_options_str  += '<option value="Merced Toledo">Merced Toledo</option>';
+            Propieta_1_options_str  += '<option value="Mercedes Ochoa">Mercedes Ochoa</option>';
+            Propieta_1_options_str  += '<option value="Micaela Buitimea">Micaela Buitimea</option>';
+            Propieta_1_options_str  += '<option value="Micaela Díaz">Micaela Díaz</option>';
+            Propieta_1_options_str  += '<option value="Micaela Mejepume">Micaela Mejepume</option>';
+            Propieta_1_options_str  += '<option value="Micaela Valenzuela">Micaela Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Miguel">Miguel</option>';
+            Propieta_1_options_str  += '<option value="Miguel Ania">Miguel Ania</option>';
+            Propieta_1_options_str  += '<option value="Miguel Arenas">Miguel Arenas</option>';
+            Propieta_1_options_str  += '<option value="Miguel Brecedo">Miguel Brecedo</option>';
+            Propieta_1_options_str  += '<option value="Miguel Buitimea">Miguel Buitimea</option>';
+            Propieta_1_options_str  += '<option value="Miguel Castelo">Miguel Castelo</option>';
+            Propieta_1_options_str  += '<option value="Miguel Flores">Miguel Flores</option>';
+            Propieta_1_options_str  += '<option value="Miguel Fontes">Miguel Fontes</option>';
+            Propieta_1_options_str  += '<option value="Miguel Fuentes">Miguel Fuentes</option>';
+            Propieta_1_options_str  += '<option value="Miguel Félix">Miguel Félix</option>';
+            Propieta_1_options_str  += '<option value="Miguel Ibarra">Miguel Ibarra</option>';
+            Propieta_1_options_str  += '<option value="Miguel Leyva">Miguel Leyva</option>';
+            Propieta_1_options_str  += '<option value="Miguel López">Miguel López</option>';
+            Propieta_1_options_str  += '<option value="Miguel Molina">Miguel Molina</option>';
+            Propieta_1_options_str  += '<option value="Miguel Olea">Miguel Olea</option>';
+            Propieta_1_options_str  += '<option value="Miguel Quiroz">Miguel Quiroz</option>';
+            Propieta_1_options_str  += '<option value="Miguel R. Mier">Miguel R. Mier</option>';
+            Propieta_1_options_str  += '<option value="Miguel Seamu">Miguel Seamu</option>';
+            Propieta_1_options_str  += '<option value="Miguel Urrea">Miguel Urrea</option>';
+            Propieta_1_options_str  += '<option value="Miguel Valenzuela">Miguel Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Modesta Amarillas">Modesta Amarillas</option>';
+            Propieta_1_options_str  += '<option value="Modesta Campos">Modesta Campos</option>';
+            Propieta_1_options_str  += '<option value="Modesta Rosas">Modesta Rosas</option>';
+            Propieta_1_options_str  += '<option value="Modesto Castelo">Modesto Castelo</option>';
+            Propieta_1_options_str  += '<option value="Modesto Cota">Modesto Cota</option>';
+            Propieta_1_options_str  += '<option value="Modesto Ibarra">Modesto Ibarra</option>';
+            Propieta_1_options_str  += '<option value="Modesto Valenzuela">Modesto Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Montaño">Montaño</option>';
+            Propieta_1_options_str  += '<option value="Natividad Corrales">Natividad Corrales</option>';
+            Propieta_1_options_str  += '<option value="Nicanor Espinosa">Nicanor Espinosa</option>';
+            Propieta_1_options_str  += '<option value="Nicanor Valenzuela">Nicanor Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Nicolasa Buitimea">Nicolasa Buitimea</option>';
+            Propieta_1_options_str  += '<option value="Nicolás Torres">Nicolás Torres</option>';
+            Propieta_1_options_str  += '<option value="No repartido">No repartido</option>';
+            Propieta_1_options_str  += '<option value="Norberto Gomez">Norberto Gomez</option>';
+            Propieta_1_options_str  += '<option value="Nuevo Fundo de Pótam">Nuevo Fundo de Pótam</option>';
+            Propieta_1_options_str  += '<option value="Octaviano Favela">Octaviano Favela</option>';
+            Propieta_1_options_str  += '<option value="Octaviano Robles">Octaviano Robles</option>';
+            Propieta_1_options_str  += '<option value="Oscar J. Riggs">Oscar J. Riggs</option>';
+            Propieta_1_options_str  += '<option value="Oscar Ocharanini">Oscar Ocharanini</option>';
+            Propieta_1_options_str  += '<option value="Oton">Oton</option>';
+            Propieta_1_options_str  += '<option value="PLutarco Valdez">PLutarco Valdez</option>';
+            Propieta_1_options_str  += '<option value="Pablo Ayala">Pablo Ayala</option>';
+            Propieta_1_options_str  += '<option value="Pablo Guerrero">Pablo Guerrero</option>';
+            Propieta_1_options_str  += '<option value="Pablo Leyva">Pablo Leyva</option>';
+            Propieta_1_options_str  += '<option value="Pablo Suárez">Pablo Suárez</option>';
+            Propieta_1_options_str  += '<option value="Pablo Valencia">Pablo Valencia</option>';
+            Propieta_1_options_str  += '<option value="Pascasio Duarte">Pascasio Duarte</option>';
+            Propieta_1_options_str  += '<option value="Pascual Caumea">Pascual Caumea</option>';
+            Propieta_1_options_str  += '<option value="Pascual Torres">Pascual Torres</option>';
+            Propieta_1_options_str  += '<option value="Patricio Matus">Patricio Matus</option>';
+            Propieta_1_options_str  += '<option value="Patrocinio Duarte">Patrocinio Duarte</option>';
+            Propieta_1_options_str  += '<option value="Paula">Paula</option>';
+            Propieta_1_options_str  += '<option value="Paula Chapamea">Paula Chapamea</option>';
+            Propieta_1_options_str  += '<option value="Paula Tiscomea">Paula Tiscomea</option>';
+            Propieta_1_options_str  += '<option value="Paulina Cantúa">Paulina Cantúa</option>';
+            Propieta_1_options_str  += '<option value="Paulina Mapomea">Paulina Mapomea</option>';
+            Propieta_1_options_str  += '<option value="Paulino Esquer">Paulino Esquer</option>';
+            Propieta_1_options_str  += '<option value="Paulino R. Corral">Paulino R. Corral</option>';
+            Propieta_1_options_str  += '<option value="Paz Arenas">Paz Arenas</option>';
+            Propieta_1_options_str  += '<option value="Paz Ruiz">Paz Ruiz</option>';
+            Propieta_1_options_str  += '<option value="Pecho Valenzuela">Pecho Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Pedefourk">Pedefourk</option>';
+            Propieta_1_options_str  += '<option value="Pedro Ayala">Pedro Ayala</option>';
+            Propieta_1_options_str  += '<option value="Pedro Corrales">Pedro Corrales</option>';
+            Propieta_1_options_str  += '<option value="Pedro Cota">Pedro Cota</option>';
+            Propieta_1_options_str  += '<option value="Pedro Cruz">Pedro Cruz</option>';
+            Propieta_1_options_str  += '<option value="Pedro F. Quiroz">Pedro F. Quiroz</option>';
+            Propieta_1_options_str  += '<option value="Pedro Gallardo">Pedro Gallardo</option>';
+            Propieta_1_options_str  += '<option value="Pedro J. Fernández">Pedro J. Fernández</option>';
+            Propieta_1_options_str  += '<option value="Pedro Leyva">Pedro Leyva</option>';
+            Propieta_1_options_str  += '<option value="Pedro López">Pedro López</option>';
+            Propieta_1_options_str  += '<option value="Pedro Marestain">Pedro Marestain</option>';
+            Propieta_1_options_str  += '<option value="Pedro Matus">Pedro Matus</option>';
+            Propieta_1_options_str  += '<option value="Pedro Miranda">Pedro Miranda</option>';
+            Propieta_1_options_str  += '<option value="Pedro Paredes">Pedro Paredes</option>';
+            Propieta_1_options_str  += '<option value="Pedro Quiroz">Pedro Quiroz</option>';
+            Propieta_1_options_str  += '<option value="Pedro Salcido">Pedro Salcido</option>';
+            Propieta_1_options_str  += '<option value="Pedro Samayoa">Pedro Samayoa</option>';
+            Propieta_1_options_str  += '<option value="Pedro Zamorano">Pedro Zamorano</option>';
+            Propieta_1_options_str  += '<option value="Perfecta Félix">Perfecta Félix</option>';
+            Propieta_1_options_str  += '<option value="Perfecta Romero">Perfecta Romero</option>';
+            Propieta_1_options_str  += '<option value="Perfecto Zazueta">Perfecto Zazueta</option>';
+            Propieta_1_options_str  += '<option value="Petra Duarte">Petra Duarte</option>';
+            Propieta_1_options_str  += '<option value="Petra Gallardo">Petra Gallardo</option>';
+            Propieta_1_options_str  += '<option value="Petra Romero">Petra Romero</option>';
+            Propieta_1_options_str  += '<option value="Petronila Murrieta">Petronila Murrieta</option>';
+            Propieta_1_options_str  += '<option value="Pilar y Severo B. Fuentes">Pilar y Severo B. Fuentes</option>';
+            Propieta_1_options_str  += '<option value="Pioquinto Moreno">Pioquinto Moreno</option>';
+            Propieta_1_options_str  += '<option value="Placida Ibarra">Placida Ibarra</option>';
+            Propieta_1_options_str  += '<option value="Plutarco Valdez">Plutarco Valdez</option>';
+            Propieta_1_options_str  += '<option value="Policarpo Garza">Policarpo Garza</option>';
+            Propieta_1_options_str  += '<option value="Policarpo Gutiérrez">Policarpo Gutiérrez</option>';
+            Propieta_1_options_str  += '<option value="Policarpo Torres">Policarpo Torres</option>';
+            Propieta_1_options_str  += '<option value="Pomposa Amarillas">Pomposa Amarillas</option>';
+            Propieta_1_options_str  += '<option value="Pomposa P. Almada">Pomposa P. Almada</option>';
+            Propieta_1_options_str  += '<option value="Pomposo Corrales">Pomposo Corrales</option>';
+            Propieta_1_options_str  += '<option value="Porfiria Cuen">Porfiria Cuen</option>';
+            Propieta_1_options_str  += '<option value="Porfirio Castro">Porfirio Castro</option>';
+            Propieta_1_options_str  += '<option value="Porfirio Corrales">Porfirio Corrales</option>';
+            Propieta_1_options_str  += '<option value="Porfirio Félix">Porfirio Félix</option>';
+            Propieta_1_options_str  += '<option value="Porfirio Guerrero">Porfirio Guerrero</option>';
+            Propieta_1_options_str  += '<option value="Prim. Duarte">Prim. Duarte</option>';
+            Propieta_1_options_str  += '<option value="Prisciliano Torres">Prisciliano Torres</option>';
+            Propieta_1_options_str  += '<option value="Pro. Castelo">Pro. Castelo</option>';
+            Propieta_1_options_str  += '<option value="Procopio Amavizca">Procopio Amavizca</option>';
+            Propieta_1_options_str  += '<option value="Procopio Castelo">Procopio Castelo</option>';
+            Propieta_1_options_str  += '<option value="Procopio López">Procopio López</option>';
+            Propieta_1_options_str  += '<option value="Prospero G. Cota">Prospero G. Cota</option>';
+            Propieta_1_options_str  += '<option value="Protasio Valenzuela">Protasio Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Prudencia Amarillas">Prudencia Amarillas</option>';
+            Propieta_1_options_str  += '<option value="Prudenciana Cantúa">Prudenciana Cantúa</option>';
+            Propieta_1_options_str  += '<option value="Prudencio Ayala">Prudencio Ayala</option>';
+            Propieta_1_options_str  += '<option value="Próspero G. Cota">Próspero G. Cota</option>';
+            Propieta_1_options_str  += '<option value="Próspero G. Félix">Próspero G. Félix</option>';
+            Propieta_1_options_str  += '<option value="Próspero Verdugo">Próspero Verdugo</option>';
+            Propieta_1_options_str  += '<option value="Pánfilo R. Sabini">Pánfilo R. Sabini</option>';
+            Propieta_1_options_str  += '<option value="Quintín Rosas">Quintín Rosas</option>';
+            Propieta_1_options_str  += '<option value="Quirina Matus">Quirina Matus</option>';
+            Propieta_1_options_str  += '<option value="Quirino Espinosa">Quirino Espinosa</option>';
+            Propieta_1_options_str  += '<option value="Rafael Burboa">Rafael Burboa</option>';
+            Propieta_1_options_str  += '<option value="Rafael Castro">Rafael Castro</option>';
+            Propieta_1_options_str  += '<option value="Rafael Cota">Rafael Cota</option>';
+            Propieta_1_options_str  += '<option value="Rafael Cruz">Rafael Cruz</option>';
+            Propieta_1_options_str  += '<option value="Rafael E. Rosas">Rafael E. Rosas</option>';
+            Propieta_1_options_str  += '<option value="Rafael Esquer">Rafael Esquer</option>';
+            Propieta_1_options_str  += '<option value="Rafael Flores">Rafael Flores</option>';
+            Propieta_1_options_str  += '<option value="Rafael Osuna">Rafael Osuna</option>';
+            Propieta_1_options_str  += '<option value="Rafael Rosas">Rafael Rosas</option>';
+            Propieta_1_options_str  += '<option value="Rafael Samayoa">Rafael Samayoa</option>';
+            Propieta_1_options_str  += '<option value="Rafael Soto">Rafael Soto</option>';
+            Propieta_1_options_str  += '<option value="Rafael Valenzuela">Rafael Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Rafael Verdugo">Rafael Verdugo</option>';
+            Propieta_1_options_str  += '<option value="Rafael Zúñiga">Rafael Zúñiga</option>';
+            Propieta_1_options_str  += '<option value="Rafaela Carrillo">Rafaela Carrillo</option>';
+            Propieta_1_options_str  += '<option value="Rafaela Félix">Rafaela Félix</option>';
+            Propieta_1_options_str  += '<option value="Ramiro Ruiz">Ramiro Ruiz</option>';
+            Propieta_1_options_str  += '<option value="Ramona Buitimea">Ramona Buitimea</option>';
+            Propieta_1_options_str  += '<option value="Ramona Lagarda">Ramona Lagarda</option>';
+            Propieta_1_options_str  += '<option value="Ramona Manso">Ramona Manso</option>';
+            Propieta_1_options_str  += '<option value="Ramona Seamu">Ramona Seamu</option>';
+            Propieta_1_options_str  += '<option value="Ramona Valencia">Ramona Valencia</option>';
+            Propieta_1_options_str  += '<option value="Ramona Yoquihue">Ramona Yoquihue</option>';
+            Propieta_1_options_str  += '<option value="Ramón Buitimea">Ramón Buitimea</option>';
+            Propieta_1_options_str  += '<option value="Ramón Cantúa">Ramón Cantúa</option>';
+            Propieta_1_options_str  += '<option value="Ramón Castelo">Ramón Castelo</option>';
+            Propieta_1_options_str  += '<option value="Ramón Cruz">Ramón Cruz</option>';
+            Propieta_1_options_str  += '<option value="Ramón Cuen">Ramón Cuen</option>';
+            Propieta_1_options_str  += '<option value="Ramón Cázares">Ramón Cázares</option>';
+            Propieta_1_options_str  += '<option value="Ramón Félix">Ramón Félix</option>';
+            Propieta_1_options_str  += '<option value="Ramón Gutiérrez">Ramón Gutiérrez</option>';
+            Propieta_1_options_str  += '<option value="Ramón Ibarra">Ramón Ibarra</option>';
+            Propieta_1_options_str  += '<option value="Ramón López">Ramón López</option>';
+            Propieta_1_options_str  += '<option value="Ramón Matus">Ramón Matus</option>';
+            Propieta_1_options_str  += '<option value="Ramón Miranda">Ramón Miranda</option>';
+            Propieta_1_options_str  += '<option value="Ramón Molina">Ramón Molina</option>';
+            Propieta_1_options_str  += '<option value="Ramón Murrieta">Ramón Murrieta</option>';
+            Propieta_1_options_str  += '<option value="Ramón Oviedo">Ramón Oviedo</option>';
+            Propieta_1_options_str  += '<option value="Ramón Paredes">Ramón Paredes</option>';
+            Propieta_1_options_str  += '<option value="Ramón Ramírez">Ramón Ramírez</option>';
+            Propieta_1_options_str  += '<option value="Ramón Rivero">Ramón Rivero</option>';
+            Propieta_1_options_str  += '<option value="Ramón Romo">Ramón Romo</option>';
+            Propieta_1_options_str  += '<option value="Ramón Tamsicomea">Ramón Tamsicomea</option>';
+            Propieta_1_options_str  += '<option value="Ramón Zayas">Ramón Zayas</option>';
+            Propieta_1_options_str  += '<option value="Ramón Zúñiga">Ramón Zúñiga</option>';
+            Propieta_1_options_str  += '<option value="Ramón Álvarez">Ramón Álvarez</option>';
+            Propieta_1_options_str  += '<option value="Raúl Amaro">Raúl Amaro</option>';
+            Propieta_1_options_str  += '<option value="Recientemente repartido y amparado">Recientemente repartido y amparado</option>';
+            Propieta_1_options_str  += '<option value="Refugio Cruz">Refugio Cruz</option>';
+            Propieta_1_options_str  += '<option value="Refugio Cuco">Refugio Cuco</option>';
+            Propieta_1_options_str  += '<option value="Refugio Espinosa">Refugio Espinosa</option>';
+            Propieta_1_options_str  += '<option value="Refugio Gutiérrez">Refugio Gutiérrez</option>';
+            Propieta_1_options_str  += '<option value="Refugio Montaño">Refugio Montaño</option>';
+            Propieta_1_options_str  += '<option value="Refugio Pablos">Refugio Pablos</option>';
+            Propieta_1_options_str  += '<option value="Refugio Rivera">Refugio Rivera</option>';
+            Propieta_1_options_str  += '<option value="Refugio Salcido">Refugio Salcido</option>';
+            Propieta_1_options_str  += '<option value="Refugio Valenzuela">Refugio Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Refugio Vega">Refugio Vega</option>';
+            Propieta_1_options_str  += '<option value="Refugio Yoquihue">Refugio Yoquihue</option>';
+            Propieta_1_options_str  += '<option value="Reginaldo Ferreros">Reginaldo Ferreros</option>';
+            Propieta_1_options_str  += '<option value="Remigio Seamu">Remigio Seamu</option>';
+            Propieta_1_options_str  += '<option value="Reyes Armenta">Reyes Armenta</option>';
+            Propieta_1_options_str  += '<option value="Reyes Horos">Reyes Horos</option>';
+            Propieta_1_options_str  += '<option value="Reyes Lamadrid">Reyes Lamadrid</option>';
+            Propieta_1_options_str  += '<option value="Reyes Molina">Reyes Molina</option>';
+            Propieta_1_options_str  += '<option value="Reyes Osmea">Reyes Osmea</option>';
+            Propieta_1_options_str  += '<option value="Reyes Robles">Reyes Robles</option>';
+            Propieta_1_options_str  += '<option value="Reyes Romero">Reyes Romero</option>';
+            Propieta_1_options_str  += '<option value="Reyes Usacamea">Reyes Usacamea</option>';
+            Propieta_1_options_str  += '<option value="Reynalda Cuevas">Reynalda Cuevas</option>';
+            Propieta_1_options_str  += '<option value="Reynaldo Cuevas">Reynaldo Cuevas</option>';
+            Propieta_1_options_str  += '<option value="Reynaldo Félix">Reynaldo Félix</option>';
+            Propieta_1_options_str  += '<option value="Reynaldo Robles">Reynaldo Robles</option>';
+            Propieta_1_options_str  += '<option value="Ricardo Amarillas">Ricardo Amarillas</option>';
+            Propieta_1_options_str  += '<option value="Ricardo Valenzuela">Ricardo Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Roberto Cruz">Roberto Cruz</option>';
+            Propieta_1_options_str  += '<option value="Roberto Sepúlveda">Roberto Sepúlveda</option>';
+            Propieta_1_options_str  += '<option value="Robles">Robles</option>';
+            Propieta_1_options_str  += '<option value="Rodolfo Esquer">Rodolfo Esquer</option>';
+            Propieta_1_options_str  += '<option value="Rodolfo Pablos">Rodolfo Pablos</option>';
+            Propieta_1_options_str  += '<option value="Romualda Félix">Romualda Félix</option>';
+            Propieta_1_options_str  += '<option value="Romualda Suban">Romualda Suban</option>';
+            Propieta_1_options_str  += '<option value="Romualdo José Zazueta">Romualdo José Zazueta</option>';
+            Propieta_1_options_str  += '<option value="Román Rivera">Román Rivera</option>';
+            Propieta_1_options_str  += '<option value="Rosa A. López">Rosa A. López</option>';
+            Propieta_1_options_str  += '<option value="Rosa Baisea">Rosa Baisea</option>';
+            Propieta_1_options_str  += '<option value="Rosa Ceceña">Rosa Ceceña</option>';
+            Propieta_1_options_str  += '<option value="Rosa Corrales">Rosa Corrales</option>';
+            Propieta_1_options_str  += '<option value="Rosa Huayuve">Rosa Huayuve</option>';
+            Propieta_1_options_str  += '<option value="Rosa León">Rosa León</option>';
+            Propieta_1_options_str  += '<option value="Rosa Osuna">Rosa Osuna</option>';
+            Propieta_1_options_str  += '<option value="Rosa S. Parada">Rosa S. Parada</option>';
+            Propieta_1_options_str  += '<option value="Rosa Tamsicomea">Rosa Tamsicomea</option>';
+            Propieta_1_options_str  += '<option value="Rosa Yoquihue">Rosa Yoquihue</option>';
+            Propieta_1_options_str  += '<option value="Rosalia Domínguez">Rosalia Domínguez</option>';
+            Propieta_1_options_str  += '<option value="Rosalia Gutiérrez">Rosalia Gutiérrez</option>';
+            Propieta_1_options_str  += '<option value="Rosalva Merino">Rosalva Merino</option>';
+            Propieta_1_options_str  += '<option value="Rosario Barra">Rosario Barra</option>';
+            Propieta_1_options_str  += '<option value="Rosario Brian">Rosario Brian</option>';
+            Propieta_1_options_str  += '<option value="Rosario Carrillo">Rosario Carrillo</option>';
+            Propieta_1_options_str  += '<option value="Rosario Cruz">Rosario Cruz</option>';
+            Propieta_1_options_str  += '<option value="Rosario Domínguez">Rosario Domínguez</option>';
+            Propieta_1_options_str  += '<option value="Rosario Ibarra">Rosario Ibarra</option>';
+            Propieta_1_options_str  += '<option value="Rosario María de Perales">Rosario María de Perales</option>';
+            Propieta_1_options_str  += '<option value="Rosario Valle">Rosario Valle</option>';
+            Propieta_1_options_str  += '<option value="Rosario Verdugo">Rosario Verdugo</option>';
+            Propieta_1_options_str  += '<option value="Rosario Álvarez">Rosario Álvarez</option>';
+            Propieta_1_options_str  += '<option value="Rosenda">Rosenda</option>';
+            Propieta_1_options_str  += '<option value="Rufina Vega">Rufina Vega</option>';
+            Propieta_1_options_str  += '<option value="Rufino Valenzuela">Rufino Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Ruperto Buitimea">Ruperto Buitimea</option>';
+            Propieta_1_options_str  += '<option value="Ruperto Félix">Ruperto Félix</option>';
+            Propieta_1_options_str  += '<option value="Rómulo Escobosa">Rómulo Escobosa</option>';
+            Propieta_1_options_str  += '<option value="Rómulo Matus">Rómulo Matus</option>';
+            Propieta_1_options_str  += '<option value="S. Félix">S. Félix</option>';
+            Propieta_1_options_str  += '<option value="S. Gil Lamadrid">S. Gil Lamadrid</option>';
+            Propieta_1_options_str  += '<option value="SOLICITADO POR COMISARÍA">SOLICITADO POR COMISARÍA</option>';
+            Propieta_1_options_str  += '<option value="Sabino Ibarra">Sabino Ibarra</option>';
+            Propieta_1_options_str  += '<option value="Sabás Peralta">Sabás Peralta</option>';
+            Propieta_1_options_str  += '<option value="Sahara Flores">Sahara Flores</option>';
+            Propieta_1_options_str  += '<option value="Salvador Armenta">Salvador Armenta</option>';
+            Propieta_1_options_str  += '<option value="Salvador Cuevas">Salvador Cuevas</option>';
+            Propieta_1_options_str  += '<option value="Salvador Padilla">Salvador Padilla</option>';
+            Propieta_1_options_str  += '<option value="Salvador Romero">Salvador Romero</option>';
+            Propieta_1_options_str  += '<option value="Santiago Corrales">Santiago Corrales</option>';
+            Propieta_1_options_str  += '<option value="Santiago Seamu">Santiago Seamu</option>';
+            Propieta_1_options_str  += '<option value="Santiago Valencia">Santiago Valencia</option>';
+            Propieta_1_options_str  += '<option value="Santiago Verdugo">Santiago Verdugo</option>';
+            Propieta_1_options_str  += '<option value="Santos (Muñoz)">Santos (Muñoz)</option>';
+            Propieta_1_options_str  += '<option value="Santos Careaga">Santos Careaga</option>';
+            Propieta_1_options_str  += '<option value="Santos Díaz">Santos Díaz</option>';
+            Propieta_1_options_str  += '<option value="Santos Galvez">Santos Galvez</option>';
+            Propieta_1_options_str  += '<option value="Santos Huycoy">Santos Huycoy</option>';
+            Propieta_1_options_str  += '<option value="Santos López">Santos López</option>';
+            Propieta_1_options_str  += '<option value="Santos de la Cruz">Santos de la Cruz</option>';
+            Propieta_1_options_str  += '<option value="Sara Cantúa">Sara Cantúa</option>';
+            Propieta_1_options_str  += '<option value="Saturnina Valenzuela">Saturnina Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Saturnino Osuna">Saturnino Osuna</option>';
+            Propieta_1_options_str  += '<option value="Sebastian Tiscomea">Sebastian Tiscomea</option>';
+            Propieta_1_options_str  += '<option value="Secundino Cota">Secundino Cota</option>';
+            Propieta_1_options_str  += '<option value="Secundino Duarte">Secundino Duarte</option>';
+            Propieta_1_options_str  += '<option value="Serapia Gutiérrez">Serapia Gutiérrez</option>';
+            Propieta_1_options_str  += '<option value="Serapia Hernández">Serapia Hernández</option>';
+            Propieta_1_options_str  += '<option value="Severiano Valenzuela">Severiano Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Severidno Acosta">Severidno Acosta</option>';
+            Propieta_1_options_str  += '<option value="Severo Zaragoza">Severo Zaragoza</option>';
+            Propieta_1_options_str  += '<option value="Silverio Espinosa">Silverio Espinosa</option>';
+            Propieta_1_options_str  += '<option value="Simona Leyva">Simona Leyva</option>';
+            Propieta_1_options_str  += '<option value="Simona Valencia">Simona Valencia</option>';
+            Propieta_1_options_str  += '<option value="Simona Yoquihue">Simona Yoquihue</option>';
+            Propieta_1_options_str  += '<option value="Simón Barra">Simón Barra</option>';
+            Propieta_1_options_str  += '<option value="Simón Espinosa">Simón Espinosa</option>';
+            Propieta_1_options_str  += '<option value="Simón S. Romero">Simón S. Romero</option>';
+            Propieta_1_options_str  += '<option value="Soledad Castro">Soledad Castro</option>';
+            Propieta_1_options_str  += '<option value="Sra. Jesús Campoy">Sra. Jesús Campoy</option>';
+            Propieta_1_options_str  += '<option value="Sra. Loreto Quintero">Sra. Loreto Quintero</option>';
+            Propieta_1_options_str  += '<option value="Sra. Nieves Smith">Sra. Nieves Smith</option>';
+            Propieta_1_options_str  += '<option value="Susana Martínez">Susana Martínez</option>';
+            Propieta_1_options_str  += '<option value="Sóstenes Martínez">Sóstenes Martínez</option>';
+            Propieta_1_options_str  += '<option value="Teodoro Cruz">Teodoro Cruz</option>';
+            Propieta_1_options_str  += '<option value="Teodoro Romero">Teodoro Romero</option>';
+            Propieta_1_options_str  += '<option value="Teodosia Flores">Teodosia Flores</option>';
+            Propieta_1_options_str  += '<option value="Teodosia Ruelas">Teodosia Ruelas</option>';
+            Propieta_1_options_str  += '<option value="Teresa Armenta">Teresa Armenta</option>';
+            Propieta_1_options_str  += '<option value="Teresa Pougeot">Teresa Pougeot</option>';
+            Propieta_1_options_str  += '<option value="Teresa Rubio">Teresa Rubio</option>';
+            Propieta_1_options_str  += '<option value="Terreno no repartido">Terreno no repartido</option>';
+            Propieta_1_options_str  += '<option value="Terrenos no repartidos">Terrenos no repartidos</option>';
+            Propieta_1_options_str  += '<option value="Teófilo Alconl">Teófilo Alconl</option>';
+            Propieta_1_options_str  += '<option value="Teófilo Zubia">Teófilo Zubia</option>';
+            Propieta_1_options_str  += '<option value="Tiburcia Seamu">Tiburcia Seamu</option>';
+            Propieta_1_options_str  += '<option value="Tiburcio Armenta">Tiburcio Armenta</option>';
+            Propieta_1_options_str  += '<option value="Tiburcio Buitimea">Tiburcio Buitimea</option>';
+            Propieta_1_options_str  += '<option value="Tiburcio Cuevas">Tiburcio Cuevas</option>';
+            Propieta_1_options_str  += '<option value="Tiburcio Esquer">Tiburcio Esquer</option>';
+            Propieta_1_options_str  += '<option value="Tiburcio Gallardo">Tiburcio Gallardo</option>';
+            Propieta_1_options_str  += '<option value="Tiburcio Leyva">Tiburcio Leyva</option>';
+            Propieta_1_options_str  += '<option value="Tiburcio Paredes">Tiburcio Paredes</option>';
+            Propieta_1_options_str  += '<option value="Tiburcio Sayula">Tiburcio Sayula</option>';
+            Propieta_1_options_str  += '<option value="Tiburcio Toledo">Tiburcio Toledo</option>';
+            Propieta_1_options_str  += '<option value="Timoteo Amarillas">Timoteo Amarillas</option>';
+            Propieta_1_options_str  += '<option value="Tomasa Días">Tomasa Días</option>';
+            Propieta_1_options_str  += '<option value="Tomasa Torres">Tomasa Torres</option>';
+            Propieta_1_options_str  += '<option value="Tomás Cajeme">Tomás Cajeme</option>';
+            Propieta_1_options_str  += '<option value="Tomás Casia">Tomás Casia</option>';
+            Propieta_1_options_str  += '<option value="Tomás Clay">Tomás Clay</option>';
+            Propieta_1_options_str  += '<option value="Tomás Duarte">Tomás Duarte</option>';
+            Propieta_1_options_str  += '<option value="Tomás Molina">Tomás Molina</option>';
+            Propieta_1_options_str  += '<option value="Tomás Romero">Tomás Romero</option>';
+            Propieta_1_options_str  += '<option value="Tomás Valenzuela">Tomás Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Tomás Yoquihue">Tomás Yoquihue</option>';
+            Propieta_1_options_str  += '<option value="Tomás Zazueta">Tomás Zazueta</option>';
+            Propieta_1_options_str  += '<option value="Tranquilina Murrieta">Tranquilina Murrieta</option>';
+            Propieta_1_options_str  += '<option value="Trinidad Amarillas">Trinidad Amarillas</option>';
+            Propieta_1_options_str  += '<option value="Trinidad Bacasehua">Trinidad Bacasehua</option>';
+            Propieta_1_options_str  += '<option value="Trinidad Castelo">Trinidad Castelo</option>';
+            Propieta_1_options_str  += '<option value="Trinidad Duarte">Trinidad Duarte</option>';
+            Propieta_1_options_str  += '<option value="Trinidad Esquer">Trinidad Esquer</option>';
+            Propieta_1_options_str  += '<option value="Trinidad P. Ruiz">Trinidad P. Ruiz</option>';
+            Propieta_1_options_str  += '<option value="Trinidad Ramírez">Trinidad Ramírez</option>';
+            Propieta_1_options_str  += '<option value="Trinidad Rosas">Trinidad Rosas</option>';
+            Propieta_1_options_str  += '<option value="Trinidad Timano">Trinidad Timano</option>';
+            Propieta_1_options_str  += '<option value="Trinidad Yoquihue">Trinidad Yoquihue</option>';
+            Propieta_1_options_str  += '<option value="Trinidad Zayas">Trinidad Zayas</option>';
+            Propieta_1_options_str  += '<option value="Umberto Molina">Umberto Molina</option>';
+            Propieta_1_options_str  += '<option value="Valente Lugo">Valente Lugo</option>';
+            Propieta_1_options_str  += '<option value="Valente Ruiz">Valente Ruiz</option>';
+            Propieta_1_options_str  += '<option value="Valente Valenzuela">Valente Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Valentino Duarte">Valentino Duarte</option>';
+            Propieta_1_options_str  += '<option value="Valentín Escalante">Valentín Escalante</option>';
+            Propieta_1_options_str  += '<option value="Valenzuela">Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Valeria Espinosa">Valeria Espinosa</option>';
+            Propieta_1_options_str  += '<option value="Valeria Jusacamea">Valeria Jusacamea</option>';
+            Propieta_1_options_str  += '<option value="Vazaro Sereno">Vazaro Sereno</option>';
+            Propieta_1_options_str  += '<option value="Venancio Félix">Venancio Félix</option>';
+            Propieta_1_options_str  += '<option value="Ventura Frías">Ventura Frías</option>';
+            Propieta_1_options_str  += '<option value="Ventura Miranda">Ventura Miranda</option>';
+            Propieta_1_options_str  += '<option value="Vicam (fundo)">Vicam (fundo)</option>';
+            Propieta_1_options_str  += '<option value="Vicente Bacasehua">Vicente Bacasehua</option>';
+            Propieta_1_options_str  += '<option value="Vicente Escalante">Vicente Escalante</option>';
+            Propieta_1_options_str  += '<option value="Vicente Maldonado">Vicente Maldonado</option>';
+            Propieta_1_options_str  += '<option value="Vicente Reyes">Vicente Reyes</option>';
+            Propieta_1_options_str  += '<option value="Vicente Rivas">Vicente Rivas</option>';
+            Propieta_1_options_str  += '<option value="Vicente Salmerón">Vicente Salmerón</option>';
+            Propieta_1_options_str  += '<option value="Vicente Torres">Vicente Torres</option>';
+            Propieta_1_options_str  += '<option value="Victor Enriquez">Victor Enriquez</option>';
+            Propieta_1_options_str  += '<option value="Victor Zamorano">Victor Zamorano</option>';
+            Propieta_1_options_str  += '<option value="Victoria Cariot">Victoria Cariot</option>';
+            Propieta_1_options_str  += '<option value="Victoria Salazar">Victoria Salazar</option>';
+            Propieta_1_options_str  += '<option value="Victoria Sánchez">Victoria Sánchez</option>';
+            Propieta_1_options_str  += '<option value="Victoria Valenzuela">Victoria Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="Vidal Fierro">Vidal Fierro</option>';
+            Propieta_1_options_str  += '<option value="Vidal Frías">Vidal Frías</option>';
+            Propieta_1_options_str  += '<option value="Vidal Osuna">Vidal Osuna</option>';
+            Propieta_1_options_str  += '<option value="Vidal Toledo">Vidal Toledo</option>';
+            Propieta_1_options_str  += '<option value="Violasa Coronado">Violasa Coronado</option>';
+            Propieta_1_options_str  += '<option value="Virginia Conant">Virginia Conant</option>';
+            Propieta_1_options_str  += '<option value="Virginia Montiel">Virginia Montiel</option>';
+            Propieta_1_options_str  += '<option value="Wenceslao Zamorano">Wenceslao Zamorano</option>';
+            Propieta_1_options_str  += '<option value="Wistano Gaytán">Wistano Gaytán</option>';
+            Propieta_1_options_str  += '<option value="Zacarías Cutaël">Zacarías Cutaël</option>';
+            Propieta_1_options_str  += '<option value="Zacarías Millanes">Zacarías Millanes</option>';
+            Propieta_1_options_str  += '<option value="jesús Valenzuela">jesús Valenzuela</option>';
+            Propieta_1_options_str  += '<option value="´Jesús Antonio Parada">´Jesús Antonio Parada</option>';
+            Propieta_1_options_str  += '<option value="Ángela Casillas">Ángela Casillas</option>';
+            Propieta_1_options_str  += '<option value="Ángela Félix">Ángela Félix</option>';
+            sel_Propieta_1.innerHTML = Propieta_1_options_str;
+            div_Propieta_1.appendChild(sel_Propieta_1);
+            var lab_Propieta_1 = document.createElement('div');
+            lab_Propieta_1.innerHTML = 'Propieta_1';
+            lab_Propieta_1.className = 'filterlabel';
+            div_Propieta_1.appendChild(lab_Propieta_1);
+            var reset_Propieta_1 = document.createElement('div');
+            reset_Propieta_1.innerHTML = 'clear filter';
+            reset_Propieta_1.className = 'filterlabel';
+            reset_Propieta_1.onclick = function() {
+                var options = document.getElementById("sel_Propieta_1").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_Propieta_1.appendChild(reset_Propieta_1);
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_COLONIA = document.createElement('div');
+            div_COLONIA.id = "div_COLONIA";
+            div_COLONIA.className= "filterselect";
+            document.getElementById("menu").appendChild(div_COLONIA);
+            sel_COLONIA = document.createElement('select');
+            sel_COLONIA.multiple = true;
+            sel_COLONIA.size = 9;
+            sel_COLONIA.id = "sel_COLONIA";
+            var COLONIA_options_str = "<option value='' unselected></option>";
+            sel_COLONIA.onchange = function(){filterFunc()};
+            COLONIA_options_str  += '<option value="BACUM">BACUM</option>';
+            COLONIA_options_str  += '<option value="COCORIT">COCORIT</option>';
+            COLONIA_options_str  += '<option value="HURIVIS">HURIVIS</option>';
+            COLONIA_options_str  += '<option value="MEDANO">MEDANO</option>';
+            COLONIA_options_str  += '<option value="POTAM">POTAM</option>';
+            COLONIA_options_str  += '<option value="RAHUM">RAHUM</option>';
+            COLONIA_options_str  += '<option value="SAN JOSÉ">SAN JOSÉ</option>';
+            COLONIA_options_str  += '<option value="TORIM">TORIM</option>';
+            COLONIA_options_str  += '<option value="VICAM">VICAM</option>';
+            sel_COLONIA.innerHTML = COLONIA_options_str;
+            div_COLONIA.appendChild(sel_COLONIA);
+            var lab_COLONIA = document.createElement('div');
+            lab_COLONIA.innerHTML = 'COLONIA';
+            lab_COLONIA.className = 'filterlabel';
+            div_COLONIA.appendChild(lab_COLONIA);
+            var reset_COLONIA = document.createElement('div');
+            reset_COLONIA.innerHTML = 'clear filter';
+            reset_COLONIA.className = 'filterlabel';
+            reset_COLONIA.onclick = function() {
+                var options = document.getElementById("sel_COLONIA").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_COLONIA.appendChild(reset_COLONIA);
+        </script>
+    </body>
+</html>
